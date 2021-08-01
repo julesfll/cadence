@@ -1,30 +1,25 @@
+<svelte:head>
+  <style src="./scss-entrypoint.scss"></style>
+</svelte:head>
 <script lang="ts">
-	export let name: string;
+	let bpm: number = 180;
 </script>
-
 <main>
-	<h1>Hello {name}!</h1>
-	<p>Visit the <a href="https://svelte.dev/tutorial">Svelte tutorial</a> to learn how to build Svelte apps.</p>
+  <section class="section">
+    <h1 class="title">Cadence</h1>
+    <div class="field has-addons">
+			<div class="control">
+				<input type="number" bind:value={bpm} class="input" />
+			</div>
+			<div class="control">
+				<a class="button is-static">BPM</a>
+			</div>
+    </div>
+		<div class="card">
+			<div class="card-content">Test</div>
+		</div>
+		<div class="card">
+			<div class="card-content">Test</div>
+		</div>
+  </section>
 </main>
-
-<style>
-	main {
-		text-align: center;
-		padding: 1em;
-		max-width: 240px;
-		margin: 0 auto;
-	}
-
-	h1 {
-		color: #ff3e00;
-		text-transform: uppercase;
-		font-size: 4em;
-		font-weight: 100;
-	}
-
-	@media (min-width: 640px) {
-		main {
-			max-width: none;
-		}
-	}
-</style>
