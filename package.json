@@ -28,6 +28,8 @@
     "typescript": "^4.0.0"
   },
   "dependencies": {
+    "@now/build-utils": "^2.7.0",
+    "axios": "^0.21.1",
     "sirv-cli": "^1.0.0"
   },
   "prettier": {
