@@ -26,6 +26,7 @@
         }
       );
       localStorage.setItem('access-token', res.data.access_token);
+      console.log('set it');
       localStorage.setItem('refresh-token', res.data.access_token);
       navigate('/', { replace: true });
     } catch (error) {

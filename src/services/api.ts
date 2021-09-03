@@ -1,5 +1,4 @@
 import axios from 'axios';
-import { TrackObjectFull } from 'spotify-api';
 
 const instance = axios.create({
   baseURL: 'https://api.spotify.com/',
@@ -19,25 +18,61 @@ const get = async (url: string, params?: {}) => {
   }
 };
 
-export const getUserProfile = async () => {
-  return get('/v1/me');
-}
-export const getUserPlaylists = async () => {
+const post = async (url: string, data: {}) => {
   try {
-    const response = await instance.get('/spotify-get', {
-      params: {
-        url: '/v1/me/playlists',
-        token: localStorage.getItem('accessToken'),
+    return instance.post(url, data, {
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem('access-token')}`,
       },
     });
-    return response.data;
   } catch (error) {
     console.error(error);
+    return error;
   }
 };
 
-export const getSavedTracks = async (): Promise<TrackObjectFull[]> => {
-  let tracks: TrackObjectFull[] = [];
+export const getUserProfile = async () => {
+  return get('/v1/me');
+};
+export const getUserPlaylists = async (): Promise<
+  SpotifyApi.PlaylistObjectFull[]
+> => {
+  let playlists: SpotifyApi.PlaylistObjectFull[] = [];
+  let res = await get('/v1/me/playlists', { limit: 50 });
+  while (res.data.next) {
+    playlists = playlists.concat(res.data.items);
+    res = await get(res.data.next);
+  }
+  playlists = playlists.concat(res.data.items);
+  return playlists;
+};
+
+export const getPlaylistItems = async (id: string) => {
+  let tracks: SpotifyApi.TrackObjectFull[] = [];
+  let res: { data: SpotifyApi.PlaylistTrackResponse } = await get(
+    `/v1/playlists/${id}/tracks`,
+    { limit: 100 }
+  );
+  while (res.data.next) {
+    tracks = tracks.concat(
+      res.data.items
+        .filter((track) => track.track.type === 'track')
+        .map((item) => item.track)
+    );
+    res = await get(res.data.next);
+  }
+  tracks = tracks.concat(
+    res.data.items
+      .filter((track) => track.track.type === 'track')
+      .map((item) => item.track)
+  );
+  return tracks;
+};
+
+export const getSavedTracks = async (): Promise<
+  SpotifyApi.TrackObjectFull[]
+> => {
+  let tracks: SpotifyApi.TrackObjectFull[] = [];
   let res = await get('/v1/me/tracks/', { limit: 50 });
   while (res.data.next) {
     tracks = tracks.concat(res.data.items.map((item) => item.track));
@@ -46,10 +81,9 @@ export const getSavedTracks = async (): Promise<TrackObjectFull[]> => {
   tracks = tracks.concat(res.data.items.map((item) => item.track));
   return tracks;
 };
-
 export const getAudioFeatures = async (
   tracks: SpotifyApi.TrackObjectFull[]
-) => {
+): Promise<SpotifyApi.AudioFeaturesObject[]> => {
   let features = [];
   for (let i = 0; i < tracks.length; i += 100) {
     const res = await get('/v1/audio-features/', {
@@ -63,29 +97,21 @@ export const getAudioFeatures = async (
   return features;
 };
 
-// TODO: Wrap data in a data key
-// TODO: Put token in cookie instead of localstorage
-export const createPlaylist = async (tracks: SpotifyApi.TrackObjectFull[]) => {
-  try {
-    const userProfileRes = await instance.get('/spotify-get', {
-      params: {
-        url: '/v1/me/',
-        token: localStorage.getItem('accessToken'),
-      },
-    });
-    const createPlaylistRes = await instance.post('/spotify-post', {
-      url: `/v1/users/${userProfileRes.data.id}/playlists`,
-      token: localStorage.getItem('accessToken'),
-      name: 'Running Playlist',
-      public: false,
-    });
-    const addItemsRes = await instance.post('/spotify-post', {
-      url: `/v1/playlists/${createPlaylistRes.data.id}/tracks`,
-      token: localStorage.getItem('accessToken'),
-      uris: tracks.map((track) => track.uri),
-    });
-    return addItemsRes.data;
-  } catch (error) {
-    console.error(error);
+export const createPlaylist = async (
+  userId: string,
+  tracks: SpotifyApi.TrackObjectFull[],
+  name: string
+) => {
+  const createPlaylistRes = await post(`/v1/users/${userId}/playlists`, {
+    name,
+    public: false,
+  });
+  for (let i = 0; i < tracks.length; i += 100) {
+    const addItemsRes = await post(
+      `/v1/playlists/${createPlaylistRes.data.id}/tracks`,
+      { uris: tracks.slice(i, i + 100).map((track) => track.uri) }
+    );
   }
+
+  return 'todo';
 };

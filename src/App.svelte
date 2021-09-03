@@ -1,52 +1,67 @@
 <script lang="ts">
   import { onMount } from 'svelte';
   import { Router, Route } from 'svelte-routing';
-  import { initiateLogin } from './services/login';
   import { getUserProfile } from './services/api';
+  import { initiateLogin, getNewAccessToken } from './services/login';
   import Home from './routes/Home.svelte';
   import AuthRedirect from './routes/AuthRedirect.svelte';
+  import PlaylistPage from './routes/PlaylistPage.svelte';
+  import '@fortawesome/fontawesome-free/js/all.js';
+
+  onMount(async () => {
+    try {
+      const res = await getUserProfile();
+      isLoggedIn = true;
+      user = res.data;
+    } catch (error) {
+      console.error(error);
+      // if (localStorage.getItem('refresh-token')) {
+      //   await getNewAccessToken();
+      // }
+    }
+  });
 
   let isLoggedIn = false;
   let user: SpotifyApi.UserObjectPublic;
-  export let url = '';
 
-  onMount(async () => {
-    const res = await getUserProfile();
-    console.log(res);
-    if (res.data.status !== 401) {
-      isLoggedIn = true;
-      user = res.data;
-    } else if (localStorage.getItem('refresh-token')) {
-      // get a new access token and save it in local storage
-    }
-  });
+  export let url = '';
 </script>
 
 <svelte:head>
-  <style src="./scss-entrypoint.scss"></style>
+  <style src="./sass/global.scss"></style>
 </svelte:head>
-<main>
-  <!-- <nav class="navbar" role="navigation" aria-label="main navigation">
-    <div class="navbar-menu">
-      <div class="navbar-start">
-        <div class="navbar-item">Cadence</div>
-      </div>
-      <div class="navbar-end">
-        <div class="navbar-item">Welcome {'name'}</div>
-      </div>
-    </div>
-  </nav> -->
-  {#if isLoggedIn}
-    <nav class="container full-width">
-      Welcome {user.display_name}
-    </nav>
-    <Router {url}>
-      <Route path="auth" component={AuthRedirect} />
-      <Route path="/"><Home /></Route>
-    </Router>
-  {:else}
-    <section class="section">
-      <button on:click={initiateLogin} class="button">Login to Spotify</button>
-    </section>
-  {/if}
-</main>
+
+<Router {url}>
+  <main>
+    {#if isLoggedIn}
+      <nav
+        class="level is-mobile"
+        role="navigation"
+        aria-label="main navigation"
+      >
+        <div class="level-left">
+          <div class="level-item">Cadence</div>
+        </div>
+        <div class="level-right">
+          <div class="level-item">
+            Welcome {user.display_name}
+          </div>
+        </div>
+      </nav>
+      <Route path="playlist/:id" component={PlaylistPage} />
+      <Route path="/" component={Home} />  
+    {:else}
+      <section class="hero is-fullheight">
+        <div class="hero-body">
+          <p class="title">
+            Cadence
+            <button on:click={initiateLogin} class="button"
+              >Login to Spotify</button
+            >
+          </p>
+        </div>
+      </section>
+    {/if}
+    <Route path="auth" component={AuthRedirect} />
+  </main>
+</Router>

@@ -3,6 +3,7 @@
 // https://docs.cotter.app/sdk-reference/api-for-other-mobile-apps/api-for-mobile-apps#step-1-create-a-code-verifier
 // https://stackoverflow.com/questions/59911194/how-to-calculate-pckes-code-verifier/59913241#59913241
 import axios from 'axios';
+import qs from 'qs';
 
 async function sha256(plain: string) {
   const encoder = new TextEncoder();
@@ -59,3 +60,26 @@ export const initiateLogin = async () => {
     });
   window.location.href = redirectUrl;
 };
+
+export const getNewAccessToken = async () => {
+  try {
+    const res = await axios.post(
+      'https://accounts.spotify.com/api/token',
+      qs.stringify({
+        grant_type: 'refresh_token',
+        client_id: 'b82520baadfd40e381de6980d7ede7ed',
+        refresh_token: localStorage.getItem('refresh-token'),
+      }),
+      {
+        headers: {
+          'Content-Type': 'application/x-www-form-urlencoded;',
+        },
+      }
+    );
+    localStorage.setItem('access-token', res.data.access_token);
+    localStorage.setItem('refresh-token', res.data.refresh_token);
+  } catch (error) {
+    console.log(error);
+  }
+
+}
