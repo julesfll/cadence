@@ -3,6 +3,7 @@
   import { Router, Route } from 'svelte-routing';
   import { getUserProfile } from './services/api';
   import { initiateLogin, getNewAccessToken } from './services/login';
+  import { user } from './stores';
   import Home from './routes/Home.svelte';
   import AuthRedirect from './routes/AuthRedirect.svelte';
   import PlaylistPage from './routes/PlaylistPage.svelte';
@@ -12,7 +13,7 @@
     try {
       const res = await getUserProfile();
       isLoggedIn = true;
-      user = res.data;
+      $user = res.data;
     } catch (error) {
       console.error(error);
       if (localStorage.getItem('refresh-token')) {
@@ -22,7 +23,6 @@
   });
 
   let isLoggedIn = false;
-  let user: SpotifyApi.UserObjectPublic;
 
   export let url = '';
 </script>
@@ -44,7 +44,7 @@
         </div>
         <div class="level-right">
           <div class="level-item">
-            Welcome {user.display_name}
+            Welcome {$user.display_name}
           </div>
         </div>
       </nav>

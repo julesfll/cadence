@@ -17,10 +17,16 @@
 </script>
 
 <section class="section">
-  <PlaylistList {playlists} onSelect={handleSelect} {selectedId} />
+  <h1 class="title">Select a playlist</h1>
   {#if selectedId}
-    <a use:link class="button" href={`/playlist/${selectedId}`}>
-      Show tracks of {playlists.filter((p) => p.id === selectedId)[0].name}
-    </a>
+    <div class="field">
+      <div class="control">
+        <a use:link class="button" href={`/playlist/${selectedId}`}>
+          Show tracks of {playlists.filter((p) => p.id === selectedId)[0]
+            ?.name || 'Liked Songs'}
+        </a>
+      </div>
+    </div>
   {/if}
+  <PlaylistList {playlists} onSelect={handleSelect} {selectedId} />
 </section>

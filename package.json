@@ -6,8 +6,7 @@
     "build": "rollup -c",
     "dev": "rollup -c -w",
     "start": "sirv public -s --no-clear",
-    "check": "svelte-check --tsconfig ./tsconfig.json",
-    "env:dev": "env-cmd npm run dev"
+    "check": "svelte-check --tsconfig ./tsconfig.json"
   },
   "devDependencies": {
     "@rollup/plugin-commonjs": "^17.0.0",
@@ -35,7 +34,6 @@
     "@fortawesome/fontawesome-free": "^5.15.4",
     "@now/build-utils": "^2.7.0",
     "axios": "^0.21.1",
-    "env-cmd": "^10.1.0",
     "sirv-cli": "^1.0.0",
     "svelte-environment-variables": "^1.0.4",
     "svelte-routing": "^1.6.0"

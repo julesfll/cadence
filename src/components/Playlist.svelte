@@ -1,9 +1,10 @@
 <script lang="ts">
 
   export let playlist:SpotifyApi.PlaylistObjectSimplified;
+  export let selected = false;
 </script>
 
-<article class="media">
+<article class="media" on:click class:has-background-primary={selected}>
   <figure class="media-left">
     <p class="image is-64x64">
       <img src={playlist.images[playlist.images.length - 1].url} alt="" />
@@ -19,3 +20,4 @@
     </div>
   </div>
 </article>
+
