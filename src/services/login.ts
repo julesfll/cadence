@@ -50,8 +50,8 @@ export const initiateLogin = async () => {
       url: '/authorize',
       params: {
         response_type: 'code',
-        client_id: 'b82520baadfd40e381de6980d7ede7ed',
-        redirect_uri: 'http://localhost:3000/auth/',
+        client_id: process.env.SVELTE_APP_CLIENT_ID,
+        redirect_uri: `${process.env.SVELTE_APP_ENV_URL}auth/`,
         code_challenge_method: 'S256',
         code_challenge: codeChallenge,
         state,
@@ -67,7 +67,7 @@ export const getNewAccessToken = async () => {
       'https://accounts.spotify.com/api/token',
       qs.stringify({
         grant_type: 'refresh_token',
-        client_id: 'b82520baadfd40e381de6980d7ede7ed',
+        client_id: process.env.SVELTE_APP_CLIENT_ID,
         refresh_token: localStorage.getItem('refresh-token'),
       }),
       {

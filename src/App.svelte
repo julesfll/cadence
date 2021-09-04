@@ -15,9 +15,9 @@
       user = res.data;
     } catch (error) {
       console.error(error);
-      // if (localStorage.getItem('refresh-token')) {
-      //   await getNewAccessToken();
-      // }
+      if (localStorage.getItem('refresh-token')) {
+        await getNewAccessToken();
+      }
     }
   });
 

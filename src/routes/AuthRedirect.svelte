@@ -15,8 +15,8 @@
         qs.stringify({
           grant_type: 'authorization_code',
           code,
-          redirect_uri: 'http://localhost:3000/auth/',
-          client_id: 'b82520baadfd40e381de6980d7ede7ed',
+          redirect_uri: `${process.env.SVELTE_APP_ENV_URL}auth/`,
+          client_id: process.env.SVELTE_APP_CLIENT_ID,
           code_verifier: sessionStorage.getItem('spotify-code-verifier'),
         }),
         {
