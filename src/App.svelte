@@ -10,19 +10,17 @@
   import '@fortawesome/fontawesome-free/js/all.js';
 
   onMount(async () => {
-    try {
-      const res = await getUserProfile();
-      isLoggedIn = true;
-      $user = res.data;
-    } catch (error) {
-      console.error(error);
-      if (localStorage.getItem('refresh-token')) {
-        await getNewAccessToken();
+    if (!$user) {
+      try {
+        const res = await getUserProfile();
+        $user = res.data;
+      } catch (error) {
+        if (localStorage.getItem('refresh-token')) {
+          await getNewAccessToken();
+        }
       }
     }
   });
-
-  let isLoggedIn = false;
 
   export let url = '';
 </script>
@@ -33,7 +31,7 @@
 
 <Router {url}>
   <main>
-    {#if isLoggedIn}
+    {#if $user}
       <nav
         class="level is-mobile"
         role="navigation"
@@ -49,7 +47,7 @@
         </div>
       </nav>
       <Route path="playlist/:id" component={PlaylistPage} />
-      <Route path="/" component={Home} />  
+      <Route path="/" component={Home} />
     {:else}
       <section class="hero is-fullheight">
         <div class="hero-body">

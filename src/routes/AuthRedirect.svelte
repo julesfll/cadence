@@ -3,6 +3,8 @@
   import axios from 'axios';
   import qs from 'qs';
   import { navigate } from 'svelte-routing';
+  import { user } from '../stores';
+  import { getUserProfile } from '../services/api';
 
   onMount(async () => {
     const urlParams = new URLSearchParams(window.location.search);
@@ -27,6 +29,8 @@
       );
       localStorage.setItem('access-token', res.data.access_token);
       localStorage.setItem('refresh-token', res.data.refresh_token);
+      const userRes = await getUserProfile();
+      $user = userRes.data;
       navigate('/', { replace: true });
     } catch (error) {
       console.log(error);
