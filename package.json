@@ -33,6 +33,7 @@
   "dependencies": {
     "@fortawesome/fontawesome-free": "^5.15.4",
     "@now/build-utils": "^2.7.0",
+    "@sveltejs/svelte-virtual-list": "^3.0.1",
     "axios": "^0.21.1",
     "sirv-cli": "^1.0.0",
     "svelte-environment-variables": "^1.0.4",
