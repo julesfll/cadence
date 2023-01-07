@@ -3,7 +3,7 @@
 	import Footer from './Footer.svelte';
 	import TempoControl from './TempoControl.svelte';
 
-	import { page } from '$app/stores'; // TODO: is this right? https://authjs.dev/reference/sveltekit/modules/main#per-component
+	import { page } from '$app/stores';
 </script>
 
 <Navbar
