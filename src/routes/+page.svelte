@@ -22,7 +22,7 @@
 </p> -->
 <main>
 	<section class="h-full bg-white p-3">
-		<h1 class="py-12 text-5xl font-semibold">Running, now with a soundtrack.</h1>
+		<h1 class="py-12 text-5xl font-semibold">Your daily jog, now with a soundtrack.</h1>
 		<button
 			on:click={() => signIn('spotify')}
 			class="border border-black py-3 px-5 font-bold hover:bg-gray-200 focus:outline-none focus:ring-8 focus:ring-gray-200"
