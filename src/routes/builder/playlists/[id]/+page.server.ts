@@ -9,6 +9,6 @@ export async function load({ params, locals }) {
 	const data = await res.json();
 
 	return {
-		tracks: data ?? []
+		playlist: data ?? []
 	};
 }

@@ -1,8 +1,9 @@
-<script>
-  import TrackList from "$lib/components/TrackList.svelte";
+<script lang="ts">
+	import TrackList from '$lib/components/TrackList.svelte';
 
-  export let data;
+	export let data;
+	const playlist: SpotifyApi.PlaylistObjectFull = data.playlist;
 </script>
-<h1 class="text-2xl">Track list</h1>
-<TrackList tracks= />
-<pre>{JSON.stringify(data.tracks, null, 2)}</pre>
+
+<h1 class="text-3xl mb-2">{playlist.name}</h1>
+<TrackList tracks={playlist.tracks.items.map((trackItem) => trackItem.track)} />
