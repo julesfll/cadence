@@ -33,7 +33,7 @@
 	</div>
 	{#if track.album}
 		<img
-			class="h-16"
+			class="h-16 w-16 object-cover"
 			src={track.album.images[track.album.images.length - 1].url}
 			alt={track.album.name}
 		/>

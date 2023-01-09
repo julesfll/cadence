@@ -14,7 +14,7 @@
 	class="block rounded-lg border border-gray-200 bg-white p-4 shadow-sm transition-all hover:bg-gray-100 hover:shadow-md"
 >
 	<li>
-		<img class="p-1" src={album.images[0].url} alt={album.name} />
+		<img class="h-32 w-32 object-cover" src={album.images[0].url} alt={album.name} />
 		<h3 class="truncate mb-2 mt-2 text-md font-bold tracking-tight text-black">
 			{album.name}
 		</h3>

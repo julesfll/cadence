@@ -14,7 +14,7 @@
 
 <section>
 	<div class="flex justify-center">
-		<img src={artist.images[artist.images.length - 1].url} alt={artist.name} class="rounded-full h-40" />
+		<img src={artist.images[0].url} alt={artist.name} class="rounded-full h-40 w-40 object-cover" />
 	</div>
 	<h1 class="p-3 text-6xl font-bold mb-2">{artist.name}</h1>
 </section>

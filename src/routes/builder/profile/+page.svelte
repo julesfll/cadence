@@ -17,3 +17,6 @@
 	<p>Out of your top 50 songs from the past few months, these would work well for your next run.</p>
 </div>
 <TrackList tracks={topTracks} />
+
+<p>And this is your CPR song. It has a tempo that would work well for CPR.</p>
+<!-- todo: pull from top 50 long term and filter 100 to 120 bpm -->

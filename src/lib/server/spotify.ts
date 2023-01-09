@@ -140,3 +140,11 @@ export async function getArtistRelatedArtists(accessToken: string, id: string) {
 	const res = await get(accessToken, BASE_URL + `artists/${id}/related-artists`);
 	return res.json();
 }
+
+export async function search(accessToken: string, query: string) {
+	const res = await get(accessToken, BASE_URL + 'search', {
+		q: query,
+		type: 'artist,album,playlist,track'
+	});
+	return res.json();
+}
