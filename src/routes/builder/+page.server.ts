@@ -10,6 +10,6 @@ export async function load({ locals }) {
 	}
 
 	return {
-		playlists: res
+		userPlaylists: res
 	};
 }
