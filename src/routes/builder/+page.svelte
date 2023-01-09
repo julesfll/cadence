@@ -2,14 +2,25 @@
 	import type { PageData } from './$types';
 	import FaHeart from 'svelte-icons/fa/FaHeart.svelte';
 	import { Tab, TabGroup, TabList, TabPanels, TabPanel } from '@rgossiaux/svelte-headlessui';
+	import PlaylistItem from '$lib/components/PlaylistItem.svelte';
+	import ArtistItem from '$lib/components/ArtistItem.svelte';
+	import AlbumGrid from '$lib/components/AlbumGrid.svelte';
 
 	export let data: PageData;
 	const { items: userPlaylists }: SpotifyApi.ListOfCurrentUsersPlaylistsResponse =
 		data.userPlaylists;
+
+	const {
+		artists: { items: userArtists }
+	}: SpotifyApi.UsersFollowedArtistsResponse = data.userArtists;
+
+	const userAlbums: SpotifyApi.AlbumObjectFull[] = data.userAlbums.items.map(
+		(albumItem) => albumItem.album
+	);
 </script>
 
 <div class="p-4">
-	<h1 class="text-xl font-bold">Playlists</h1>
+	<h1 class="text-xl font-bold">Library</h1>
 </div>
 <TabGroup>
 	<TabList class="flex border-b text-sm font-medium text-gray-500">
@@ -48,22 +59,23 @@
 						</li>
 					</a>
 					{#each userPlaylists as playlist (playlist.id)}
-						<a
-							href={`/builder/playlists/${playlist.id}`}
-							class="block rounded-lg border border-gray-200 bg-white p-4 shadow-sm transition-all hover:bg-gray-100 hover:shadow-md"
-						>
-							<li>
-								<img class="p-1" src={playlist.images[0].url} alt={playlist.name} />
-								<h3 class="truncate mb-2 mt-2 text-md font-bold tracking-tight text-black">
-									{playlist.name}
-								</h3>
-								<p class="text-sm font-normal text-gray-700">
-									By {playlist.owner.display_name}
-								</p>
-							</li>
-						</a>
+						<PlaylistItem {playlist} />
 					{/each}
 				</ul>
+			</section>
+		</TabPanel>
+		<TabPanel>
+			<section>
+				<ul class="grid grid-cols-2 sm:grid-cols-4 gap-4 p-4">
+					{#each userArtists as artist (artist.id)}
+						<ArtistItem {artist} />
+					{/each}
+				</ul>
+			</section>
+		</TabPanel>
+		<TabPanel>
+			<section>
+				<AlbumGrid albums={userAlbums} />
 			</section>
 		</TabPanel>
 	</TabPanels>
