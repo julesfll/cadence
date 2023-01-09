@@ -48,6 +48,16 @@ async function paginatedGet(
 	}
 }
 
+export async function getUserPlaylists(accessToken: string) {
+	return paginatedGet(
+		accessToken,
+		BASE_URL + 'me/playlists',
+		(result) => result.next,
+		(result, items) => result.items.push(...items),
+		{ limit: '50' }
+	);
+}
+
 export async function getPlaylist(accessToken: string, id: string) {
 	return paginatedGet(
 		accessToken,
@@ -57,12 +67,29 @@ export async function getPlaylist(accessToken: string, id: string) {
 	);
 }
 
-export async function getUserPlaylists(accessToken: string) {
+export async function getAlbum(accessToken: string, id: string) {
 	return paginatedGet(
 		accessToken,
-		BASE_URL + 'me/playlists',
+		BASE_URL + `albums/${id}`,
+		(result) => result.tracks.next,
+		(result, items) => result.tracks.items.push(...items)
+	);
+}
+
+export async function getSavedTracks(accessToken: string) {
+	return paginatedGet(
+		accessToken,
+		BASE_URL + 'me/tracks',
 		(result) => result.next,
 		(result, items) => result.items.push(...items),
 		{ limit: '50' }
 	);
+}
+
+export async function getTopTracks(accessToken: string) {
+	const res = await get(accessToken, BASE_URL + 'me/top/tracks', {
+		limit: '50',
+		time_range: 'medium_term'
+	});
+	return res.json();
 }

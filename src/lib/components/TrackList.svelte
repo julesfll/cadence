@@ -1,7 +1,7 @@
 <script lang="ts">
 	import TrackItem from './TrackItem.svelte';
 
-	export let tracks: SpotifyApi.TrackObjectFull[];
+	export let tracks: (SpotifyApi.TrackObjectFull | SpotifyApi.TrackObjectSimplified)[];
 </script>
 
 <ul>

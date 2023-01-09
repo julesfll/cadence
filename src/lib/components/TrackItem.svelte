@@ -1,5 +1,5 @@
 <script lang="ts">
-	export let track: SpotifyApi.TrackObjectFull;
+	export let track: SpotifyApi.TrackObjectFull | SpotifyApi.TrackObjectSimplified;
 
 	import FaPlus from 'svelte-icons/fa/FaPlus.svelte';
 	import FaStopwatch from 'svelte-icons/fa/FaStopwatch.svelte';
@@ -29,7 +29,9 @@
 		</div>
 		<span class="sr-only">Add track</span>
 	</div>
-	<img class="h-16" src={track.album.images[0].url} alt={track.album.name} />
+	{#if track.album}
+		<img class="h-16" src={track.album.images[0].url} alt={track.album.name} />
+	{/if}
 	<div class="space-y-1 px-3 py-1">
 		<h3 class="text-ellipsis">{track.name}</h3>
 		<p class="text-sm text-gray-500">
