@@ -1,4 +1,6 @@
 <script lang="ts">
+	import TextArtistList from '$lib/components/TextArtistList.svelte';
+
 	export let track: SpotifyApi.TrackObjectFull | SpotifyApi.TrackObjectSimplified;
 
 	import FaPlus from 'svelte-icons/fa/FaPlus.svelte';
@@ -30,7 +32,11 @@
 		<span class="sr-only">Add track</span>
 	</div>
 	{#if track.album}
-		<img class="h-16" src={track.album.images[0].url} alt={track.album.name} />
+		<img
+			class="h-16"
+			src={track.album.images[track.album.images.length - 1].url}
+			alt={track.album.name}
+		/>
 	{/if}
 	<div class="space-y-1 px-3 py-1">
 		<h3 class="text-ellipsis">{track.name}</h3>
@@ -38,7 +44,7 @@
 			{#if track.explicit}
 				<span class="mr-1 bg-gray-200 px-1.5 py-0.5 text-xs font-medium">E</span>
 			{/if}
-			{track.artists.map((artist) => artist.name).join(', ')}
+			<TextArtistList artists={track.artists} />
 		</p>
 		<div class="inline-flex items-center bg-gray-200 px-1.5 py-0.5 text-xs font-medium">
 			<div class="mr-1 h-3 w-3">
