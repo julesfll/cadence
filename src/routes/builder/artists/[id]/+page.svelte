@@ -1,5 +1,6 @@
 <script lang="ts">
 	import AlbumGrid from '$lib/components/AlbumGrid.svelte';
+	import ArtistGrid from '$lib/components/ArtistGrid.svelte';
 	import TrackList from '$lib/components/TrackList.svelte';
 	import { Tab, TabGroup, TabList, TabPanels, TabPanel } from '@rgossiaux/svelte-headlessui';
 
@@ -54,12 +55,8 @@
 		</TabPanels>
 	</TabGroup>
 </section>
-<!-- <pre>
-  {JSON.stringify(artistTopTracks, null, 2)}
-</pre>
-<pre>
-  {JSON.stringify(artistTopTracks, null, 2)}
-</pre>
-<pre>
-  {JSON.stringify(artistRelatedArtists, null, 2)}
-</pre> -->
+<section>
+	<h2 class="p-3 font-bold text-xl">Fans also like</h2>
+	<!-- TODO: artists not loading properly when link clicked -->
+	<ArtistGrid artists={artistRelatedArtists} />
+</section>

@@ -3,8 +3,8 @@
 	import FaHeart from 'svelte-icons/fa/FaHeart.svelte';
 	import { Tab, TabGroup, TabList, TabPanels, TabPanel } from '@rgossiaux/svelte-headlessui';
 	import PlaylistItem from '$lib/components/PlaylistItem.svelte';
-	import ArtistItem from '$lib/components/ArtistItem.svelte';
 	import AlbumGrid from '$lib/components/AlbumGrid.svelte';
+	import ArtistGrid from '$lib/components/ArtistGrid.svelte';
 
 	export let data: PageData;
 	const { items: userPlaylists }: SpotifyApi.ListOfCurrentUsersPlaylistsResponse =
@@ -66,11 +66,7 @@
 		</TabPanel>
 		<TabPanel>
 			<section>
-				<ul class="grid grid-cols-2 sm:grid-cols-4 gap-4 p-4">
-					{#each userArtists as artist (artist.id)}
-						<ArtistItem {artist} />
-					{/each}
-				</ul>
+				<ArtistGrid artists={userArtists} />
 			</section>
 		</TabPanel>
 		<TabPanel>
