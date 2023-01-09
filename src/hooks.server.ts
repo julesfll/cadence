@@ -10,6 +10,7 @@ const AUTHORIZATION_URL =
 		scope: [
 			'user-read-email',
 			'user-library-read',
+			'user-follow-read',
 			'playlist-read-private',
 			'playlist-modify-private',
 			'user-top-read'

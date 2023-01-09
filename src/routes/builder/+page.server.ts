@@ -1,15 +1,27 @@
 import { error } from '@sveltejs/kit';
-import { getUserPlaylists } from '$lib/server/spotify';
+import { getUserAlbums, getUserArtists, getUserPlaylists } from '$lib/server/spotify';
 
 export async function load({ locals }) {
-	const session = await locals.getSession();
+	const { accessToken } = await locals.getSession();
 
-  const res = await getUserPlaylists(session.accessToken);
-	if (res.error) {
-		throw error(res.error.status, res.error.message)
+	const playlistRes = await getUserPlaylists(accessToken);
+	if (playlistRes.error) {
+		throw error(playlistRes.error.status, playlistRes.error.message);
+	}
+
+	const artistRes = await getUserArtists(accessToken);
+	if (artistRes.error) {
+		throw error(artistRes.error.status, artistRes.error.message);
+	}
+
+	const albumRes = await getUserAlbums(accessToken);
+	if (albumRes.error) {
+		throw error(albumRes.error.status, albumRes.error.message);
 	}
 
 	return {
-		userPlaylists: res
+		userPlaylists: playlistRes,
+		userArtists: artistRes,
+		userAlbums: albumRes
 	};
 }

@@ -58,6 +58,26 @@ export async function getUserPlaylists(accessToken: string) {
 	);
 }
 
+export async function getUserAlbums(accessToken: string) {
+	return paginatedGet(
+		accessToken,
+		BASE_URL + 'me/albums',
+		(result) => result.next,
+		(result, items) => result.items.push(...items),
+		{ limit: '50' }
+	);
+}
+
+export async function getUserArtists(accessToken: string) {
+	return paginatedGet(
+		accessToken,
+		BASE_URL + 'me/following',
+		(result) => result.artists.next,
+		(result, items) => result.artists.items.push(...items),
+		{ limit: '50', type: 'artist' }
+	);
+}
+
 export async function getPlaylist(accessToken: string, id: string) {
 	return paginatedGet(
 		accessToken,
@@ -91,5 +111,32 @@ export async function getTopTracks(accessToken: string) {
 		limit: '50',
 		time_range: 'medium_term'
 	});
+	return res.json();
+}
+
+export async function getArtist(accessToken: string, id: string) {
+	const res = await get(accessToken, BASE_URL + `artists/${id}`);
+	return res.json();
+}
+
+export async function getArtistAlbums(accessToken: string, id: string) {
+	return paginatedGet(
+		accessToken,
+		BASE_URL + `artists/${id}/albums`,
+		(result) => result.next,
+		(result, items) => result.items.push(...items),
+		{ include_groups: 'album,single', limit: '50' }
+	);
+}
+
+export async function getArtistTopTracks(accessToken: string, id: string) {
+	const res = await get(accessToken, BASE_URL + `artists/${id}/top-tracks`, {
+		country: 'from_token'
+	});
+	return res.json();
+}
+
+export async function getArtistRelatedArtists(accessToken: string, id: string) {
+	const res = await get(accessToken, BASE_URL + `artists/${id}/related-artists`);
 	return res.json();
 }
