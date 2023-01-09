@@ -2,9 +2,9 @@
 	import type { PageData } from './$types';
 	import FaHeart from 'svelte-icons/fa/FaHeart.svelte';
 	import { Tab, TabGroup, TabList, TabPanels, TabPanel } from '@rgossiaux/svelte-headlessui';
-	import PlaylistItem from '$lib/components/PlaylistItem.svelte';
 	import AlbumGrid from '$lib/components/AlbumGrid.svelte';
 	import ArtistGrid from '$lib/components/ArtistGrid.svelte';
+	import PlaylistGrid from '$lib/components/PlaylistGrid.svelte';
 
 	export let data: PageData;
 	const { items: userPlaylists }: SpotifyApi.ListOfCurrentUsersPlaylistsResponse =
@@ -19,9 +19,7 @@
 	);
 </script>
 
-<div class="p-4">
-	<h1 class="text-xl font-bold">Library</h1>
-</div>
+<h1 class="p-4 text-xl font-bold">Library</h1>
 <TabGroup>
 	<TabList class="flex border-b text-sm font-medium text-gray-500">
 		<Tab
@@ -46,22 +44,7 @@
 	<TabPanels>
 		<TabPanel>
 			<section>
-				<ul class="grid grid-cols-2 sm:grid-cols-4 gap-4 p-4">
-					<a
-						href="/builder/saved"
-						class="block rounded-lg border border-gray-200 bg-blue-500 p-4 shadow-sm transition-all hover:bg-gray-100 hover:shadow-md"
-					>
-						<li>
-							<FaHeart />
-							<h3 class="truncate mb-2 mt-2 text-md font-bold tracking-tight text-black">
-								Liked Songs
-							</h3>
-						</li>
-					</a>
-					{#each userPlaylists as playlist (playlist.id)}
-						<PlaylistItem {playlist} />
-					{/each}
-				</ul>
+				<PlaylistGrid playlists={userPlaylists} showLikedSongs={true} />
 			</section>
 		</TabPanel>
 		<TabPanel>

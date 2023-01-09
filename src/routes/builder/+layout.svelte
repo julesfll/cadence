@@ -6,13 +6,15 @@
 	import { page } from '$app/stores';
 </script>
 
-<Navbar
-	username={$page.data.session?.user?.name ?? ''}
-	userImage={$page.data.session?.user?.image ?? ''}
-/>
-<main>
-	<slot />
-</main>
-<Footer>
-	<TempoControl />
-</Footer>
+<div class="flex h-screen flex-col">
+	<Navbar
+		username={$page.data.session?.user?.name ?? ''}
+		userImage={$page.data.session?.user?.image ?? ''}
+	/>
+	<main class="flex-1 overflow-y-scroll">
+		<slot />
+	</main>
+	<footer class=" w-full border-t border-gray-200 bg-white p-3">
+		<TempoControl />
+	</footer>
+</div>

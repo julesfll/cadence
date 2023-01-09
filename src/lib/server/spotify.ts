@@ -1,9 +1,5 @@
 const BASE_URL = 'https://api.spotify.com/v1/';
 
-interface ErrorResponse {
-	error: SpotifyApi.ErrorObject;
-}
-
 async function get(accessToken: string, url: string, params?: Record<string, string>) {
 	const options = {
 		headers: {
