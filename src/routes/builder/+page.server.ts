@@ -5,9 +5,11 @@ export async function load({ locals }) {
 	const session = await locals.getSession();
 
   const res = await getUserPlaylists(session.accessToken);
-	const data = await res.json();
+	if (res.error) {
+		throw error(res.error.status, res.error.message)
+	}
 
 	return {
-		playlists: data.items ?? []
+		playlists: res
 	};
 }

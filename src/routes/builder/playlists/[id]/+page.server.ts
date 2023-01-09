@@ -6,9 +6,11 @@ export async function load({ params, locals }) {
 	const session = await locals.getSession();
 
   const res = await getPlaylist(session.accessToken, params.id);
-	const data = await res.json();
+	if (res.error) {
+		throw error(res.error.status, res.error.message)
+	}
 
 	return {
-		playlist: data ?? []
+		playlist: res
 	};
 }
