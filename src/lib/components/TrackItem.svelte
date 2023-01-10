@@ -1,12 +1,30 @@
 <script lang="ts">
 	import TextArtistList from '$lib/components/TextArtistList.svelte';
+	import FaPlus from 'svelte-icons/fa/FaPlus.svelte';
+	import FaCheck from 'svelte-icons/fa/FaCheck.svelte';
+	import FaStopwatch from 'svelte-icons/fa/FaStopwatch.svelte';
+	import { selectedTracks } from '$lib/stores';
 
 	export let track: SpotifyApi.TrackObjectFull | SpotifyApi.TrackObjectSimplified;
 	export let handlePlayTrack: (src: string | null) => void;
 	export let handlePauseTrack: () => void;
 
-	import FaPlus from 'svelte-icons/fa/FaPlus.svelte';
-	import FaStopwatch from 'svelte-icons/fa/FaStopwatch.svelte';
+	function addTrack() {
+		$selectedTracks = [...$selectedTracks, track];
+	}
+	function removeTrack() {
+		// TODO: is object comparison safe?
+		$selectedTracks = $selectedTracks.filter((trackInList) => trackInList !== track);
+	}
+	function toggleTrack() {
+		if (trackSelected) {
+			removeTrack();
+		} else {
+			addTrack();
+		}
+	}
+
+	$: trackSelected = $selectedTracks.includes(track);
 </script>
 
 <div
@@ -14,11 +32,16 @@
 	on:mouseout={() => handlePauseTrack()}
 	on:focus={() => handlePlayTrack(track.preview_url)}
 	on:blur={() => handlePauseTrack()}
+	on:click={toggleTrack}
 	class="group flex cursor-pointer items-center hover:bg-gray-100"
 >
 	<div class="flex items-center group-hover:text-blue-600">
 		<div class="h-5 w-5 m-3">
-			<FaPlus />
+			{#if trackSelected}
+				<FaCheck />
+			{:else}
+				<FaPlus />
+			{/if}
 		</div>
 		<span class="sr-only">Add track</span>
 	</div>

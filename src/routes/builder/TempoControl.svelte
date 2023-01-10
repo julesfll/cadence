@@ -1,6 +1,10 @@
+<script lang="ts">
+	import { selectedTracks } from "$lib/stores";
+
+</script>
 <div class="flex items-center justify-between">
   <div class="flex items-center">
-    <p>3 songs selected</p>
+    <p>{$selectedTracks.length} songs selected</p>
     <button
       type="button"
       class="ml-3 flex cursor-pointer items-center border border-black p-2 hover:bg-gray-200 focus:outline-none focus:ring-4 focus:ring-gray-200"
@@ -39,6 +43,11 @@
       /></svg
     > <span class="sr-only">Show songs</span>
   </button>
+</div>
+<div>
+	<pre>
+		{JSON.stringify($selectedTracks.map(track => track.name), null, 2)}
+	</pre>
 </div>
 <hr class="mt-4" />
 <form>
