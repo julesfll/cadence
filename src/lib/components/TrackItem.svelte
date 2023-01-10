@@ -2,27 +2,18 @@
 	import TextArtistList from '$lib/components/TextArtistList.svelte';
 
 	export let track: SpotifyApi.TrackObjectFull | SpotifyApi.TrackObjectSimplified;
+	export let handlePlayTrack: (src: string | null) => void;
+	export let handlePauseTrack: () => void;
 
 	import FaPlus from 'svelte-icons/fa/FaPlus.svelte';
 	import FaStopwatch from 'svelte-icons/fa/FaStopwatch.svelte';
-
-	let paused = true;
-	let currentTime = 0;
-	function playTrack(e) {
-		currentTime = 0;
-		paused = false;
-	}
-	function pauseTrack(e) {
-		paused = true;
-	}
 </script>
 
-<audio bind:paused bind:currentTime src={track.preview_url} />
 <div
-	on:mouseover={playTrack}
-	on:mouseout={pauseTrack}
-	on:focus={playTrack}
-	on:blur={pauseTrack}
+	on:mouseover={() => handlePlayTrack(track.preview_url)}
+	on:mouseout={() => handlePauseTrack()}
+	on:focus={() => handlePlayTrack(track.preview_url)}
+	on:blur={() => handlePauseTrack()}
 	class="group flex cursor-pointer items-center hover:bg-gray-100"
 >
 	<div class="flex items-center p-3 group-hover:text-blue-600">
