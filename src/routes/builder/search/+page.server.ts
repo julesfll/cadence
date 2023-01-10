@@ -6,7 +6,7 @@ export async function load({ url, locals }) {
 
 	const searchQuery = url.searchParams.get('q');
 	const res = await search(accessToken, searchQuery);
-	if (res.error) {
+	if ('error' in res) {
 		throw error(res.error.status, res.error.message);
 	}
 

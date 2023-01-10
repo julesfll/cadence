@@ -22,7 +22,7 @@
 			</li>
 		</a>
 	{/if}
-	{#each playlists as playlist (playlist.id)}
+	{#each playlists as playlist}
 		<PlaylistItem {playlist} />
 	{/each}
 </ul>

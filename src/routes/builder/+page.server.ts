@@ -5,17 +5,17 @@ export async function load({ locals }) {
 	const { accessToken } = await locals.getSession();
 
 	const playlistRes = await getUserPlaylists(accessToken);
-	if (playlistRes.error) {
+	if ('error' in playlistRes) {
 		throw error(playlistRes.error.status, playlistRes.error.message);
 	}
 
 	const artistRes = await getUserArtists(accessToken);
-	if (artistRes.error) {
+	if ('error' in artistRes) {
 		throw error(artistRes.error.status, artistRes.error.message);
 	}
 
 	const albumRes = await getUserAlbums(accessToken);
-	if (albumRes.error) {
+	if ('error' in albumRes) {
 		throw error(albumRes.error.status, albumRes.error.message);
 	}
 

@@ -3,13 +3,13 @@
 	import ArtistGrid from '$lib/components/ArtistGrid.svelte';
 	import TrackList from '$lib/components/TrackList.svelte';
 	import { Tab, TabGroup, TabList, TabPanels, TabPanel } from '@rgossiaux/svelte-headlessui';
+	import type { PageData } from './$types';
 
-	export let data;
-	const artist: SpotifyApi.SingleArtistResponse = data.artist;
-	const { items: artistAlbums }: SpotifyApi.ArtistsAlbumsResponse = data.artistAlbums;
-	const { tracks: artistTopTracks }: SpotifyApi.ArtistsTopTracksResponse = data.artistTopTracks;
-	const { artists: artistRelatedArtists }: SpotifyApi.ArtistsRelatedArtistsResponse =
-		data.artistRelatedArtists;
+	export let data: PageData;
+	const artist = data.artist;
+	const { items: artistAlbums } = data.artistAlbums;
+	const { tracks: artistTopTracks } = data.artistTopTracks;
+	const { artists: artistRelatedArtists } = data.artistRelatedArtists;
 </script>
 
 <section>

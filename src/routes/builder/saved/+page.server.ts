@@ -6,7 +6,7 @@ export async function load({ locals }) {
 	const session = await locals.getSession();
 
   const res = await getSavedTracks(session.accessToken);
-	if (res.error) {
+	if ('error' in res) {
 		throw error(res.error.status, res.error.message)
 	}
 

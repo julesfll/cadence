@@ -21,7 +21,7 @@
 <AudioPlayer bind:playTrack bind:pauseTrack {src} />
 <ul>
 	{#if tracks}
-		{#each tracks as track (track.id)}
+		{#each tracks as track, i}
 			<li>
 				<TrackItem {track} {handlePlayTrack} {handlePauseTrack} />
 			</li>

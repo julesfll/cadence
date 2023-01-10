@@ -7,16 +7,13 @@
 	import PlaylistGrid from '$lib/components/PlaylistGrid.svelte';
 
 	export let data: PageData;
-	const { items: userPlaylists }: SpotifyApi.ListOfCurrentUsersPlaylistsResponse =
-		data.userPlaylists;
+	const { items: userPlaylists } = data.userPlaylists;
 
 	const {
 		artists: { items: userArtists }
-	}: SpotifyApi.UsersFollowedArtistsResponse = data.userArtists;
+	} = data.userArtists;
 
-	const userAlbums: SpotifyApi.AlbumObjectFull[] = data.userAlbums.items.map(
-		(albumItem) => albumItem.album
-	);
+	const userAlbums = data.userAlbums.items.map((albumItem) => albumItem.album);
 </script>
 
 <h1 class="p-4 text-xl font-bold">Library</h1>

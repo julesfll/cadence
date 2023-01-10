@@ -33,7 +33,9 @@
 	on:focus={() => handlePlayTrack(track.preview_url)}
 	on:blur={() => handlePauseTrack()}
 	on:click={toggleTrack}
-	class="group flex cursor-pointer items-center hover:bg-gray-100"
+	class={`group flex cursor-pointer items-center ${
+		trackSelected ? 'bg-gray-200 hover:bg-gray-200' : 'hover:bg-gray-100'
+	}`}
 >
 	<div class="flex items-center group-hover:text-blue-600">
 		<div class="h-5 w-5 m-3">

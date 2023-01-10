@@ -1,3 +1,5 @@
+import type { SpotifyApiResponse } from '$lib/types';
+
 const BASE_URL = 'https://api.spotify.com/v1/';
 
 async function get(accessToken: string, url: string, params?: Record<string, string>) {
@@ -44,7 +46,9 @@ async function paginatedGet(
 	}
 }
 
-export async function getUserPlaylists(accessToken: string) {
+export async function getUserPlaylists(
+	accessToken: string
+): Promise<SpotifyApiResponse<SpotifyApi.ListOfUsersPlaylistsResponse>> {
 	return paginatedGet(
 		accessToken,
 		BASE_URL + 'me/playlists',
@@ -54,7 +58,9 @@ export async function getUserPlaylists(accessToken: string) {
 	);
 }
 
-export async function getUserAlbums(accessToken: string) {
+export async function getUserAlbums(
+	accessToken: string
+): Promise<SpotifyApiResponse<SpotifyApi.UsersSavedAlbumsResponse>> {
 	return paginatedGet(
 		accessToken,
 		BASE_URL + 'me/albums',
@@ -64,7 +70,9 @@ export async function getUserAlbums(accessToken: string) {
 	);
 }
 
-export async function getUserArtists(accessToken: string) {
+export async function getUserArtists(
+	accessToken: string
+): Promise<SpotifyApiResponse<SpotifyApi.UsersFollowedArtistsResponse>> {
 	return paginatedGet(
 		accessToken,
 		BASE_URL + 'me/following',
@@ -74,7 +82,10 @@ export async function getUserArtists(accessToken: string) {
 	);
 }
 
-export async function getPlaylist(accessToken: string, id: string) {
+export async function getPlaylist(
+	accessToken: string,
+	id: string
+): Promise<SpotifyApiResponse<SpotifyApi.SinglePlaylistResponse>> {
 	return paginatedGet(
 		accessToken,
 		BASE_URL + `playlists/${id}`,
@@ -83,7 +94,10 @@ export async function getPlaylist(accessToken: string, id: string) {
 	);
 }
 
-export async function getAlbum(accessToken: string, id: string) {
+export async function getAlbum(
+	accessToken: string,
+	id: string
+): Promise<SpotifyApiResponse<SpotifyApi.AlbumObjectFull>> {
 	return paginatedGet(
 		accessToken,
 		BASE_URL + `albums/${id}`,
@@ -92,7 +106,9 @@ export async function getAlbum(accessToken: string, id: string) {
 	);
 }
 
-export async function getSavedTracks(accessToken: string) {
+export async function getSavedTracks(
+	accessToken: string
+): Promise<SpotifyApiResponse<SpotifyApi.UsersSavedTracksResponse>> {
 	return paginatedGet(
 		accessToken,
 		BASE_URL + 'me/tracks',
@@ -102,7 +118,9 @@ export async function getSavedTracks(accessToken: string) {
 	);
 }
 
-export async function getTopTracks(accessToken: string) {
+export async function getTopTracks(
+	accessToken: string
+): Promise<SpotifyApiResponse<SpotifyApi.UsersTopTracksResponse>> {
 	const res = await get(accessToken, BASE_URL + 'me/top/tracks', {
 		limit: '50',
 		time_range: 'medium_term'
@@ -110,12 +128,18 @@ export async function getTopTracks(accessToken: string) {
 	return res.json();
 }
 
-export async function getArtist(accessToken: string, id: string) {
+export async function getArtist(
+	accessToken: string,
+	id: string
+): Promise<SpotifyApiResponse<SpotifyApi.SingleArtistResponse>> {
 	const res = await get(accessToken, BASE_URL + `artists/${id}`);
 	return res.json();
 }
 
-export async function getArtistAlbums(accessToken: string, id: string) {
+export async function getArtistAlbums(
+	accessToken: string,
+	id: string
+): Promise<SpotifyApiResponse<SpotifyApi.ArtistsAlbumsResponse>> {
 	return paginatedGet(
 		accessToken,
 		BASE_URL + `artists/${id}/albums`,
@@ -125,22 +149,53 @@ export async function getArtistAlbums(accessToken: string, id: string) {
 	);
 }
 
-export async function getArtistTopTracks(accessToken: string, id: string) {
+export async function getArtistTopTracks(
+	accessToken: string,
+	id: string
+): Promise<SpotifyApiResponse<SpotifyApi.ArtistsTopTracksResponse>> {
 	const res = await get(accessToken, BASE_URL + `artists/${id}/top-tracks`, {
 		country: 'from_token'
 	});
 	return res.json();
 }
 
-export async function getArtistRelatedArtists(accessToken: string, id: string) {
+export async function getArtistRelatedArtists(
+	accessToken: string,
+	id: string
+): Promise<SpotifyApiResponse<SpotifyApi.ArtistsRelatedArtistsResponse>> {
 	const res = await get(accessToken, BASE_URL + `artists/${id}/related-artists`);
 	return res.json();
 }
 
-export async function search(accessToken: string, query: string) {
+export async function search(
+	accessToken: string,
+	query: string
+): Promise<SpotifyApiResponse<SpotifyApi.SearchResponse>> {
 	const res = await get(accessToken, BASE_URL + 'search', {
 		q: query,
 		type: 'artist,album,playlist,track'
 	});
 	return res.json();
+}
+
+export async function getAudioFeatures(
+	accessToken: string,
+	tracks: SpotifyApi.TrackObjectFull[]
+): Promise<SpotifyApiResponse<SpotifyApi.MultipleAudioFeaturesResponse>> {
+	const ids = tracks.map((track) => track.id);
+	const result: SpotifyApiResponse<SpotifyApi.MultipleAudioFeaturesResponse> = {
+		audio_features: []
+	};
+
+	for (let i = 0; i < ids.length; i += 100) {
+		const res = await get(accessToken, BASE_URL + '/audio-features', {
+			ids: ids.slice(i, i + 100).join()
+		});
+		const resJson = await res.json();
+		if (resJson.error) {
+			throw resJson;
+		}
+		result.audio_features.push(...resJson.audio_features);
+	}
+	return result;
 }

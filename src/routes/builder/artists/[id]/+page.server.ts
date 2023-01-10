@@ -10,22 +10,22 @@ export async function load({ locals, params }) {
 	const { accessToken } = await locals.getSession();
 
 	const artistRes = await getArtist(accessToken, params.id);
-	if (artistRes.error) {
+	if ('error' in artistRes) {
 		throw error(artistRes.error.status, artistRes.error.message);
 	}
 
 	const albumsRes = await getArtistAlbums(accessToken, params.id);
-	if (albumsRes.error) {
+	if ('error' in albumsRes) {
 		throw error(albumsRes.error.status, albumsRes.error.message);
 	}
 
 	const topTracksRes = await getArtistTopTracks(accessToken, params.id);
-	if (topTracksRes.error) {
+	if ('error' in topTracksRes) {
 		throw error(topTracksRes.error.status, topTracksRes.error.message);
 	}
 
 	const relatedArtistsRes = await getArtistRelatedArtists(accessToken, params.id);
-	if (relatedArtistsRes.error) {
+	if ('error' in relatedArtistsRes) {
 		throw error(relatedArtistsRes.error.status, relatedArtistsRes.error.message);
 	}
 

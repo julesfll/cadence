@@ -1,8 +1,9 @@
 <script lang="ts">
 	import TrackList from '$lib/components/TrackList.svelte';
+	import type { PageData } from './$types';
 
-	export let data;
-	const savedTracks: SpotifyApi.TrackObjectFull[] = data.savedTracks.items.map(
+	export let data: PageData;
+	const savedTracks = data.savedTracks.items.map(
 		(trackItem) => trackItem.track
 	);
 </script>
