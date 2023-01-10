@@ -14,7 +14,7 @@
 	<main class="flex-1 overflow-y-scroll">
 		<slot />
 	</main>
-	<footer class=" w-full border-t border-gray-200 bg-white p-3">
+	<Footer>
 		<TempoControl />
-	</footer>
+	</Footer>
 </div>

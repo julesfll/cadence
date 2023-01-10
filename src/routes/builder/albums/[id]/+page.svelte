@@ -5,5 +5,5 @@
 	const album: SpotifyApi.AlbumObjectFull = data.album;
 </script>
 
-<h1 class="text-3xl mb-2">{album.name}</h1>
+<h1 class="p-3 text-3xl mb-2">{album.name}</h1>
 <TrackList tracks={album.tracks.items} />

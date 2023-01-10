@@ -16,8 +16,8 @@
 	on:blur={() => handlePauseTrack()}
 	class="group flex cursor-pointer items-center hover:bg-gray-100"
 >
-	<div class="flex items-center p-3 group-hover:text-blue-600">
-		<div class="h-5 w-5">
+	<div class="flex items-center group-hover:text-blue-600">
+		<div class="h-5 w-5 m-3">
 			<FaPlus />
 		</div>
 		<span class="sr-only">Add track</span>

@@ -18,7 +18,7 @@
 	}
 </script>
 
-<AudioPlayer bind:playTrack bind:pauseTrack {src} />;
+<AudioPlayer bind:playTrack bind:pauseTrack {src} />
 <ul>
 	{#if tracks}
 		{#each tracks as track (track.id)}

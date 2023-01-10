@@ -9,13 +9,13 @@
 	<li>
 		{#if artist.images.length > 0}
 			<img
-				class="h-32 w-32 rounded-full object-cover"
+				class="h-full w-full rounded-full object-cover"
 				src={artist.images[0].url}
 				alt={artist.name}
 			/>
 		{:else}
-			<div class="h-32 w-32 grid place-items-center bg-gray-700 rounded-full">
-				<div class="h-12 w-12 ">
+			<div class="h-full w-full grid place-items-center bg-gray-700 rounded-full">
+				<div class="h-1/3 w-1/3 ">
 					<svg
 						role="img"
 						aria-hidden="true"
