@@ -4,7 +4,6 @@
 	import TrackList from '$lib/components/TrackList.svelte';
 
 	export let data: PageData;
-	const { items: topTracks } = data.topTracks;
 </script>
 
 <div class="p-3">
@@ -16,4 +15,4 @@
 	<p>Check it out!</p>
 	<p>Out of your top 50 songs from the past few months, these would work well for your next run.</p>
 </div>
-<TrackList tracks={topTracks} />
+<TrackList tracks={data.topTracksWithTempos} />

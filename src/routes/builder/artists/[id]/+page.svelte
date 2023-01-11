@@ -6,7 +6,7 @@
 	import type { PageData } from './$types';
 
 	export let data: PageData;
-	const artist = data.artist;
+	const { artist, topTracksWithTempos } = data;
 	const { items: artistAlbums } = data.artistAlbums;
 	const { tracks: artistTopTracks } = data.artistTopTracks;
 	const { artists: artistRelatedArtists } = data.artistRelatedArtists;
@@ -20,7 +20,7 @@
 </section>
 <section>
 	<h2 class="p-3 font-bold text-xl">Popular</h2>
-	<TrackList tracks={artistTopTracks} />
+	<TrackList tracks={topTracksWithTempos} />
 </section>
 <section>
 	<h2 class="p-3 font-bold text-xl">Discography</h2>

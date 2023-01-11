@@ -6,6 +6,7 @@
 	import { selectedTracks } from '$lib/stores';
 
 	export let track: SpotifyApi.TrackObjectFull | SpotifyApi.TrackObjectSimplified;
+	export let showAlbum = true;
 	export let handlePlayTrack: (src: string | null) => void;
 	export let handlePauseTrack: () => void;
 
@@ -47,14 +48,14 @@
 		</div>
 		<span class="sr-only">Add track</span>
 	</div>
-	{#if track.album}
+	{#if track.album && showAlbum}
 		<img
-			class="h-16 w-16 object-cover"
+			class="h-20 w-20 object-cover"
 			src={track.album.images[track.album.images.length - 1].url}
 			alt={track.album.name}
 		/>
 	{/if}
-	<div class="space-y-1 px-3 py-1">
+	<div class="space-y-1 px-3 py-2">
 		<h3 class="text-ellipsis">{track.name}</h3>
 		<p class="text-sm text-gray-500">
 			{#if track.explicit}
@@ -62,11 +63,13 @@
 			{/if}
 			<TextArtistList artists={track.artists} />
 		</p>
-		<div class="inline-flex items-center bg-gray-200 px-1.5 py-0.5 text-xs font-medium">
-			<div class="mr-1 h-3 w-3">
-				<FaStopwatch />
+		{#if track.tempo}
+			<div class="inline-flex items-center bg-gray-200 px-1.5 py-0.5 text-xs font-medium">
+				<div class="mr-1 h-3 w-3">
+					<FaStopwatch />
+				</div>
+				{Math.round(track.tempo)} BPM
 			</div>
-			100 BPM
-		</div>
+		{/if}
 	</div>
 </div>

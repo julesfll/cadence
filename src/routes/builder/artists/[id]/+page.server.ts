@@ -3,7 +3,8 @@ import {
 	getArtist,
 	getArtistAlbums,
 	getArtistTopTracks,
-	getArtistRelatedArtists
+	getArtistRelatedArtists,
+	getTracksWithTempos
 } from '$lib/server/spotify';
 
 export async function load({ locals, params }) {
@@ -29,10 +30,22 @@ export async function load({ locals, params }) {
 		throw error(relatedArtistsRes.error.status, relatedArtistsRes.error.message);
 	}
 
+	const tracks = topTracksRes.tracks.filter((track) => track !== null);
+
+	const tracksWithTempos = await getTracksWithTempos(
+		accessToken,
+		tracks as SpotifyApi.TrackObjectFull[]
+	);
+
+	if ('error' in tracksWithTempos) {
+		throw error(tracksWithTempos.error.status, tracksWithTempos.error.message);
+	}
+
 	return {
 		artist: artistRes,
 		artistAlbums: albumsRes,
 		artistTopTracks: topTracksRes,
-		artistRelatedArtists: relatedArtistsRes
+		artistRelatedArtists: relatedArtistsRes,
+		topTracksWithTempos: tracksWithTempos
 	};
 }

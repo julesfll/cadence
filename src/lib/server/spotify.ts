@@ -1,4 +1,4 @@
-import type { SpotifyApiResponse } from '$lib/types';
+import type { SpotifyApiResponse, TrackWithTempo } from '$lib/types';
 
 const BASE_URL = 'https://api.spotify.com/v1/';
 
@@ -183,19 +183,37 @@ export async function getAudioFeatures(
 	tracks: SpotifyApi.TrackObjectFull[]
 ): Promise<SpotifyApiResponse<SpotifyApi.MultipleAudioFeaturesResponse>> {
 	const ids = tracks.map((track) => track.id);
+
 	const result: SpotifyApiResponse<SpotifyApi.MultipleAudioFeaturesResponse> = {
 		audio_features: []
 	};
 
 	for (let i = 0; i < ids.length; i += 100) {
-		const res = await get(accessToken, BASE_URL + '/audio-features', {
+		const res = await get(accessToken, BASE_URL + 'audio-features', {
 			ids: ids.slice(i, i + 100).join()
 		});
+
 		const resJson = await res.json();
 		if (resJson.error) {
-			throw resJson;
+			return resJson;
 		}
+
 		result.audio_features.push(...resJson.audio_features);
 	}
 	return result;
+}
+
+export async function getTracksWithTempos(
+	accessToken: string,
+	tracks: SpotifyApi.TrackObjectFull[]
+): Promise<SpotifyApiResponse<TrackWithTempo[]>> {
+	const audioFeaturesRes = await getAudioFeatures(accessToken, tracks);
+	if ('error' in audioFeaturesRes) {
+		return audioFeaturesRes;
+	}
+	const tracksWithTempos = audioFeaturesRes.audio_features.map((audioFeature, i) => ({
+		...tracks[i],
+		tempo: audioFeature.tempo
+	}));
+	return tracksWithTempos;
 }

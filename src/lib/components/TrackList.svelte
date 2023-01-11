@@ -3,6 +3,7 @@
 	import AudioPlayer from '$lib/components/AudioPlayer.svelte';
 
 	export let tracks: (SpotifyApi.TrackObjectFull | SpotifyApi.TrackObjectSimplified)[];
+	export let showAlbum = true;
 
 	let src: string | null;
 	let playTrack: () => void;
@@ -23,7 +24,7 @@
 	{#if tracks}
 		{#each tracks as track, i}
 			<li>
-				<TrackItem {track} {handlePlayTrack} {handlePauseTrack} />
+				<TrackItem {track} {handlePlayTrack} {handlePauseTrack} {showAlbum} />
 			</li>
 		{/each}
 	{/if}

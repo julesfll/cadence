@@ -81,7 +81,7 @@
 		<TabPanel>
 			<section>
 				<h2 class="px-3 py-1 text-xl font-bold">Songs</h2>
-				<TrackList tracks={(data.searchResults?.tracks?.items ?? []).slice(0, 4)} />
+				<TrackList tracks={(data.tracksWithTempos).slice(0, 4)} />
 				<h2 class="px-3 py-1 text-xl font-bold">Artists</h2>
 				<ArtistGrid artists={(data.searchResults?.artists?.items ?? []).slice(0, 4)} />
 				<h2 class="px-3 py-1 text-xl font-bold">Playlists</h2>
@@ -92,7 +92,7 @@
 		</TabPanel>
 		<TabPanel>
 			<section>
-				<TrackList tracks={data.searchResults?.tracks?.items ?? []} />
+				<TrackList tracks={data.tracksWithTempos} />
 			</section>
 		</TabPanel>
 		<TabPanel>

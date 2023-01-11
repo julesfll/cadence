@@ -1,5 +1,5 @@
 import { error } from '@sveltejs/kit';
-import { getTopTracks } from '$lib/server/spotify';
+import { getTopTracks, getTracksWithTempos } from '$lib/server/spotify';
 
 export async function load({ locals }) {
 	const { accessToken } = await locals.getSession();
@@ -9,7 +9,18 @@ export async function load({ locals }) {
 		throw error(res.error.status, res.error.message);
 	}
 
+	const tracks = res.items.filter((track) => track !== null);
+
+	const tracksWithTempos = await getTracksWithTempos(
+		accessToken,
+		tracks as SpotifyApi.TrackObjectFull[]
+	);
+
+	if ('error' in tracksWithTempos) {
+		throw error(tracksWithTempos.error.status, tracksWithTempos.error.message);
+	}
+
 	return {
-		topTracks: res
+		topTracksWithTempos: tracksWithTempos
 	};
 }
