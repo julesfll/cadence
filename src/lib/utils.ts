@@ -17,6 +17,6 @@ export function createTempoFilter(minBpm: number, maxBpm: number, allowHalftime:
 export function filterTracks(
 	tracks: TrackWithTempo[],
 	filter: ({ tempo }: TrackWithTempo) => boolean
-) {
+): [TrackWithTempo[], TrackWithTempo[]] {
 	return partition(tracks, filter);
 }

@@ -8,17 +8,15 @@
 	import TempoTapper from '$lib/components/TempoTapper.svelte';
 	import { trackFilter } from '$lib/stores';
 	import { selectedTracks } from '$lib/stores';
-
-	const INITIAL_BPMS = [170, 190];
-	const TAPPER_RANGE = 20;
+	import { INITIAL_ALLOW_HALFTIME, INITIAL_BPMS, TAPPER_RANGE } from '$lib/constants';
 
 	let tapperBpm = (INITIAL_BPMS[0] + INITIAL_BPMS[1]) / 2;
 	let bpms = INITIAL_BPMS;
-	let allowHalftime = true;
+	let allowHalftime = INITIAL_ALLOW_HALFTIME;
 
 	function resetBpms() {
 		bpms = INITIAL_BPMS;
-		allowHalftime = true;
+		allowHalftime = INITIAL_ALLOW_HALFTIME;
 	}
 
 	$: $trackFilter = createTempoFilter(bpms[0], bpms[1], allowHalftime);
