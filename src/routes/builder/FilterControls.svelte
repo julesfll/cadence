@@ -1,7 +1,6 @@
 <script lang="ts">
 	import RangeSlider from 'svelte-range-slider-pips';
 	import FaChevronUp from 'svelte-icons/fa/FaChevronUp.svelte';
-	import FaExternalLinkAlt from 'svelte-icons/fa/FaExternalLinkAlt.svelte';
 	import FaUndo from 'svelte-icons/fa/FaUndo.svelte';
 	import { createTempoFilter } from '$lib/utils';
 	import TrackList from '$lib/components/TrackList.svelte';
@@ -9,6 +8,7 @@
 	import { trackFilter } from '$lib/stores';
 	import { selectedTracks } from '$lib/stores';
 	import { INITIAL_ALLOW_HALFTIME, INITIAL_BPMS, TAPPER_RANGE } from '$lib/constants';
+	import ExportMenu from './ExportMenu.svelte';
 
 	let tapperBpm = (INITIAL_BPMS[0] + INITIAL_BPMS[1]) / 2;
 	let bpms = INITIAL_BPMS;
@@ -26,15 +26,7 @@
 <div class="flex items-center justify-between">
 	<div class="flex items-center">
 		<p>{$selectedTracks.length} songs selected</p>
-		<button
-			type="button"
-			class="ml-3 flex cursor-pointer items-center border border-black p-2 hover:bg-gray-200 focus:outline-none focus:ring-4 focus:ring-gray-200"
-		>
-			<div class="h-6 w-6">
-				<FaExternalLinkAlt />
-			</div>
-			<span class="mx-3">Export</span>
-		</button>
+		<ExportMenu />
 	</div>
 	<button
 		type="button"

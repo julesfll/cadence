@@ -1,12 +1,31 @@
 import type { SpotifyApiResponse, TrackWithTempo } from '$lib/types';
 
-const BASE_URL = 'https://api.spotify.com/v1/';
+const BASE_URL = 'https://api.spotify.com/v1';
 
 async function get(accessToken: string, url: string, params?: Record<string, string>) {
 	const options = {
 		headers: {
 			Authorization: `Bearer ${accessToken}`
 		}
+	};
+
+	const searchParamString = params ? '?' + new URLSearchParams(params).toString() : '';
+	return fetch(url + searchParamString, options);
+}
+
+async function post(
+	accessToken: string,
+	url: string,
+	body: Record<string, any>,
+	params?: Record<string, string>
+) {
+	const options = {
+		headers: {
+			Authorization: `Bearer ${accessToken}`,
+			'Content-Type': 'application/json'
+		},
+		method: 'POST',
+		body: JSON.stringify(body)
 	};
 
 	const searchParamString = params ? '?' + new URLSearchParams(params).toString() : '';
@@ -51,7 +70,7 @@ export async function getUserPlaylists(
 ): Promise<SpotifyApiResponse<SpotifyApi.ListOfUsersPlaylistsResponse>> {
 	return paginatedGet(
 		accessToken,
-		BASE_URL + 'me/playlists',
+		BASE_URL + '/me/playlists',
 		(result) => result.next,
 		(result, items) => result.items.push(...items),
 		{ limit: '50' }
@@ -63,7 +82,7 @@ export async function getUserAlbums(
 ): Promise<SpotifyApiResponse<SpotifyApi.UsersSavedAlbumsResponse>> {
 	return paginatedGet(
 		accessToken,
-		BASE_URL + 'me/albums',
+		BASE_URL + '/me/albums',
 		(result) => result.next,
 		(result, items) => result.items.push(...items),
 		{ limit: '50' }
@@ -75,7 +94,7 @@ export async function getUserArtists(
 ): Promise<SpotifyApiResponse<SpotifyApi.UsersFollowedArtistsResponse>> {
 	return paginatedGet(
 		accessToken,
-		BASE_URL + 'me/following',
+		BASE_URL + '/me/following',
 		(result) => result.artists.next,
 		(result, items) => result.artists.items.push(...items),
 		{ limit: '50', type: 'artist' }
@@ -88,7 +107,7 @@ export async function getPlaylist(
 ): Promise<SpotifyApiResponse<SpotifyApi.SinglePlaylistResponse>> {
 	return paginatedGet(
 		accessToken,
-		BASE_URL + `playlists/${id}`,
+		BASE_URL + `/playlists/${id}`,
 		(result) => result.tracks.next,
 		(result, items) => result.tracks.items.push(...items)
 	);
@@ -100,7 +119,7 @@ export async function getAlbum(
 ): Promise<SpotifyApiResponse<SpotifyApi.AlbumObjectFull>> {
 	return paginatedGet(
 		accessToken,
-		BASE_URL + `albums/${id}`,
+		BASE_URL + `/albums/${id}`,
 		(result) => result.tracks.next,
 		(result, items) => result.tracks.items.push(...items)
 	);
@@ -111,7 +130,7 @@ export async function getSavedTracks(
 ): Promise<SpotifyApiResponse<SpotifyApi.UsersSavedTracksResponse>> {
 	return paginatedGet(
 		accessToken,
-		BASE_URL + 'me/tracks',
+		BASE_URL + '/me/tracks',
 		(result) => result.next,
 		(result, items) => result.items.push(...items),
 		{ limit: '50' }
@@ -121,7 +140,7 @@ export async function getSavedTracks(
 export async function getTopTracks(
 	accessToken: string
 ): Promise<SpotifyApiResponse<SpotifyApi.UsersTopTracksResponse>> {
-	const res = await get(accessToken, BASE_URL + 'me/top/tracks', {
+	const res = await get(accessToken, BASE_URL + '/me/top/tracks', {
 		limit: '50',
 		time_range: 'medium_term'
 	});
@@ -132,7 +151,7 @@ export async function getArtist(
 	accessToken: string,
 	id: string
 ): Promise<SpotifyApiResponse<SpotifyApi.SingleArtistResponse>> {
-	const res = await get(accessToken, BASE_URL + `artists/${id}`);
+	const res = await get(accessToken, BASE_URL + `/artists/${id}`);
 	return res.json();
 }
 
@@ -142,7 +161,7 @@ export async function getArtistAlbums(
 ): Promise<SpotifyApiResponse<SpotifyApi.ArtistsAlbumsResponse>> {
 	return paginatedGet(
 		accessToken,
-		BASE_URL + `artists/${id}/albums`,
+		BASE_URL + `/artists/${id}/albums`,
 		(result) => result.next,
 		(result, items) => result.items.push(...items),
 		{ include_groups: 'album,single', limit: '50' }
@@ -153,7 +172,7 @@ export async function getArtistTopTracks(
 	accessToken: string,
 	id: string
 ): Promise<SpotifyApiResponse<SpotifyApi.ArtistsTopTracksResponse>> {
-	const res = await get(accessToken, BASE_URL + `artists/${id}/top-tracks`, {
+	const res = await get(accessToken, BASE_URL + `/artists/${id}/top-tracks`, {
 		country: 'from_token'
 	});
 	return res.json();
@@ -163,7 +182,7 @@ export async function getArtistRelatedArtists(
 	accessToken: string,
 	id: string
 ): Promise<SpotifyApiResponse<SpotifyApi.ArtistsRelatedArtistsResponse>> {
-	const res = await get(accessToken, BASE_URL + `artists/${id}/related-artists`);
+	const res = await get(accessToken, BASE_URL + `/artists/${id}/related-artists`);
 	return res.json();
 }
 
@@ -171,7 +190,7 @@ export async function search(
 	accessToken: string,
 	query: string
 ): Promise<SpotifyApiResponse<SpotifyApi.SearchResponse>> {
-	const res = await get(accessToken, BASE_URL + 'search', {
+	const res = await get(accessToken, BASE_URL + '/search', {
 		q: query,
 		type: 'artist,album,playlist,track'
 	});
@@ -189,7 +208,7 @@ export async function getAudioFeatures(
 	};
 
 	for (let i = 0; i < ids.length; i += 100) {
-		const res = await get(accessToken, BASE_URL + 'audio-features', {
+		const res = await get(accessToken, BASE_URL + '/audio-features', {
 			ids: ids.slice(i, i + 100).join()
 		});
 
@@ -216,4 +235,56 @@ export async function getTracksWithTempos(
 		tempo: audioFeature.tempo
 	}));
 	return tracksWithTempos;
+}
+
+export async function createPlaylist(
+	accessToken: string,
+	userId: string,
+	name: string,
+	description?: string
+): Promise<SpotifyApiResponse<SpotifyApi.CreatePlaylistResponse>> {
+	const res = await post(accessToken, BASE_URL + `/users/${userId}/playlists`, {
+		name,
+		public: false,
+		description
+	});
+	return res.json();
+}
+
+export async function addTracksToPlaylist(
+	accessToken: string,
+	id: string,
+	trackUris: string[],
+	removeDuplicates = false
+): Promise<SpotifyApiResponse<SpotifyApi.AddTracksToPlaylistResponse>> {
+	if (removeDuplicates) {
+		const existingTracksRes = await getPlaylist(accessToken, id);
+		if ('error' in existingTracksRes) {
+			return existingTracksRes;
+		}
+		const existingTrackUris = existingTracksRes.tracks.items
+			.filter((item) => item)
+			.map((item) => item.track?.uri);
+
+		trackUris = trackUris.filter((uri) => !existingTrackUris.includes(uri));
+	}
+
+	let result: SpotifyApiResponse<SpotifyApi.AddTracksToPlaylistResponse> = {
+		error: {
+			status: 400,
+			message: 'No tracks added'
+		}
+	};
+	for (let i = 0; i < trackUris.length; i += 100) {
+		const res = await post(accessToken, BASE_URL + `/playlists/${id}/tracks`, {
+			uris: trackUris.slice(i, i + 100)
+		});
+		const resJson = await res.json();
+		if ('error' in resJson) {
+			return resJson;
+		}
+		result = resJson;
+	}
+
+	return result;
 }
