@@ -1,6 +1,28 @@
 <script lang="ts">
+	import RangeSlider from 'svelte-range-slider-pips';
+	import FaChevronUp from 'svelte-icons/fa/FaChevronUp.svelte';
+	import FaExternalLinkAlt from 'svelte-icons/fa/FaExternalLinkAlt.svelte';
+	import FaUndo from 'svelte-icons/fa/FaUndo.svelte';
+	import { createTempoFilter } from '$lib/utils';
 	import TrackList from '$lib/components/TrackList.svelte';
+	import TempoTapper from '$lib/components/TempoTapper.svelte';
+	import { trackFilter } from '$lib/stores';
 	import { selectedTracks } from '$lib/stores';
+
+	const INITIAL_BPMS = [170, 190];
+	const TAPPER_RANGE = 20;
+
+	let tapperBpm = (INITIAL_BPMS[0] + INITIAL_BPMS[1]) / 2;
+	let bpms = INITIAL_BPMS;
+	let allowHalftime = true;
+
+	function resetBpms() {
+		bpms = INITIAL_BPMS;
+		allowHalftime = true;
+	}
+
+	$: $trackFilter = createTempoFilter(bpms[0], bpms[1], allowHalftime);
+	$: bpms = [tapperBpm - TAPPER_RANGE / 2, tapperBpm + TAPPER_RANGE / 2];
 </script>
 
 <div class="flex items-center justify-between">
@@ -10,19 +32,9 @@
 			type="button"
 			class="ml-3 flex cursor-pointer items-center border border-black p-2 hover:bg-gray-200 focus:outline-none focus:ring-4 focus:ring-gray-200"
 		>
-			<svg
-				class="h-6 w-6"
-				fill="none"
-				stroke="currentColor"
-				viewBox="0 0 24 24"
-				xmlns="http://www.w3.org/2000/svg"
-				><path
-					stroke-linecap="round"
-					stroke-linejoin="round"
-					stroke-width="2"
-					d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"
-				/></svg
-			>
+			<div class="h-6 w-6">
+				<FaExternalLinkAlt />
+			</div>
 			<span class="mx-3">Export</span>
 		</button>
 	</div>
@@ -30,19 +42,10 @@
 		type="button"
 		class="flex cursor-pointer items-center p-2.5 hover:bg-gray-200 focus:outline-none focus:ring-4 focus:ring-gray-200"
 	>
-		<svg
-			class="h-6 w-6"
-			fill="none"
-			stroke="currentColor"
-			viewBox="0 0 24 24"
-			xmlns="http://www.w3.org/2000/svg"
-			><path
-				stroke-linecap="round"
-				stroke-linejoin="round"
-				stroke-width="2"
-				d="M5 15l7-7 7 7"
-			/></svg
-		> <span class="sr-only">Show songs</span>
+		<div class="h-6 w-6">
+			<FaChevronUp />
+		</div>
+		<span class="sr-only">Show songs</span>
 	</button>
 </div>
 <div class="max-h-16 overflow-y-scroll">
@@ -56,47 +59,46 @@
 <hr class="mt-4" />
 <form>
 	<div class="p-2">
-		<input
-			type="range"
-			value="50"
-			class="h-2 w-full cursor-pointer appearance-none rounded-lg bg-gray-200"
+		<RangeSlider
+			min={100}
+			max={200}
+			float
+			range
+			pushy
+			pips
+			first="label"
+			last="label"
+			bind:values={bpms}
 		/>
 	</div>
 	<div class="flex items-center space-x-1">
 		<button
+			on:click={resetBpms}
 			type="button"
 			class="flex cursor-pointer items-center py-2 px-2.5 hover:bg-gray-200 focus:outline-none focus:ring-4 focus:ring-gray-200"
 		>
-			<svg
-				class="h-5 w-5"
-				fill="none"
-				stroke="currentColor"
-				viewBox="0 0 24 24"
-				xmlns="http://www.w3.org/2000/svg"
-				><path
-					stroke-linecap="round"
-					stroke-linejoin="round"
-					stroke-width="2"
-					d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"
-				/></svg
-			>
+			<div class="h-5 w-5">
+				<FaUndo />
+			</div>
 			<span class="sr-only">Reset</span>
 		</button>
 		<input
+			bind:value={bpms[0]}
 			type="number"
 			class="block w-16 border border-black bg-gray-50 p-1 text-sm text-gray-900 focus:border-blue-500 focus:ring-gray-500"
 		/>
 		<input
+			bind:value={bpms[1]}
 			type="number"
 			class="block w-16 border border-black bg-gray-50 p-1 text-sm text-gray-900 focus:border-blue-500 focus:ring-gray-500"
 		/>
-		<button
-			type="button"
-			class="flex cursor-pointer items-center py-2 px-2.5 text-sm hover:bg-gray-200 active:bg-gray-400"
-			>Tap a beat</button
-		>
+		<TempoTapper bind:bpm={tapperBpm} />
 		<label class="flex items-center">
-			<input type="checkbox" class="h-4 w-4 border border-black bg-gray-100" />
+			<input
+				bind:checked={allowHalftime}
+				type="checkbox"
+				class="h-4 w-4 border border-black bg-gray-100"
+			/>
 			<span class="ml-2 text-sm"> Allow halftime </span>
 		</label>
 	</div>

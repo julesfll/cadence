@@ -1,7 +1,7 @@
 <script>
 	import Navbar from './Navbar.svelte';
 	import Footer from './Footer.svelte';
-	import TempoControl from './TempoControl.svelte';
+	import FilterControls from './FilterControls.svelte';
 
 	import { page } from '$app/stores';
 </script>
@@ -15,6 +15,6 @@
 		<slot />
 	</main>
 	<Footer>
-		<TempoControl />
+		<FilterControls />
 	</Footer>
 </div>

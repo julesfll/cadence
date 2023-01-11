@@ -32,7 +32,7 @@
 		<input
 			type="search"
 			name="q"
-      value={data.searchQuery}
+			value={data.searchQuery}
 			class="block w-full p-4 pl-10 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500 "
 			placeholder="Search"
 			required
@@ -81,7 +81,7 @@
 		<TabPanel>
 			<section>
 				<h2 class="px-3 py-1 text-xl font-bold">Songs</h2>
-				<TrackList tracks={(data.tracksWithTempos).slice(0, 4)} />
+				<TrackList tracks={data.tracksWithTempos.slice(0, 4)} />
 				<h2 class="px-3 py-1 text-xl font-bold">Artists</h2>
 				<ArtistGrid artists={(data.searchResults?.artists?.items ?? []).slice(0, 4)} />
 				<h2 class="px-3 py-1 text-xl font-bold">Playlists</h2>
