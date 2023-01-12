@@ -2,47 +2,22 @@
 	export let username: string;
 	export let userImage: string;
 
-	import FaMusic from 'svelte-icons/fa/FaMusic.svelte';
-	import FaSearch from 'svelte-icons/fa/FaSearch.svelte';
-	import FaBook from 'svelte-icons/fa/FaBook.svelte';
+	import Icon from '@iconify/svelte';
+	import Button from '$lib/components/atoms/Button.svelte';
 </script>
 
 <nav class="container flex items-center justify-between p-3">
-	<div class="flex">
+	<div class="flex text-gray-700">
 		<a href="/" class="flex items-center">
 			<div class="h-6 w-6 ">
-				<FaMusic />
+				<Icon icon="mdi:music-note-eighth" class="h-6 w-6" />
 			</div>
 			<span class="mx-3 text-xl font-semibold">Cadence</span>
 		</a>
 	</div>
 	<div class="flex">
-		<a
-			href="/builder/search"
-			class="flex cursor-pointer items-center py-2 px-2.5 hover:bg-gray-200 focus:outline-none focus:ring-4 focus:ring-gray-200"
-		>
-			<div class="h-5 w-5">
-				<FaSearch />
-			</div>
-		</a>
-		<a
-			href="/builder"
-			class="flex cursor-pointer items-center border border-black py-2 px-2.5 hover:bg-gray-200 focus:outline-none focus:ring-4 focus:ring-gray-200"
-		>
-			<span class="sr-only">Go to library</span>
-			<div class="h-5 w-5">
-				<FaBook />
-			</div>
-		</a>
-		<a
-			href="/builder/profile"
-			class="flex cursor-pointer items-center border border-black p-2 hover:bg-gray-200 focus:outline-none focus:ring-4 focus:ring-gray-200"
-		>
-			<span class="sr-only">Go to profile</span>
-			<div class="h-6 w-6">
-				<img src={userImage} alt={`${username}'s profile picture`} />
-			</div>
-			<span class="text-medium mx-3">{username}</span>
-		</a>
+		<Button href="/builder/search" icon="mdi:search" variant="inverted"/>
+		<Button href="/builder" icon="mdi:bookshelf" variant="inverted"/>
+		<Button href="/builder/profile" icon="mdi:account" variant="inverted">{username}</Button>
 	</div>
 </nav>

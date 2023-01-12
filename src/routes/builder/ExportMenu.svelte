@@ -1,5 +1,4 @@
 <script lang="ts">
-	import FaExternalLinkAlt from 'svelte-icons/fa/FaExternalLinkAlt.svelte';
 	import {
 		Dialog,
 		DialogOverlay,
@@ -8,6 +7,7 @@
 	} from '@rgossiaux/svelte-headlessui';
 	import { selectedTracks } from '$lib/stores';
 	import { goto } from '$app/navigation';
+	import Button from '$lib/components/atoms/Button.svelte';
 
 	let isOpen = false;
 	let selectedAddPlaylistId = '';
@@ -69,19 +69,12 @@
 			<input type="checkbox" bind:value={removeDuplicates} />
 		</label>
 
-		<button disabled={!selectedAddPlaylistId}>Export</button>
+		<Button disabled={!selectedAddPlaylistId}>Export</Button>
 	</form>
 
-	<button on:click={() => (isOpen = false)}>Cancel</button>
+	<Button on:click={() => (isOpen = false)} variant="inverted">Cancel</Button>
 </Dialog>
 
-<button
-	on:click={loadModal}
-	type="button"
-	class="ml-3 flex cursor-pointer items-center border border-black p-2 hover:bg-gray-200 focus:outline-none focus:ring-4 focus:ring-gray-200"
->
-	<div class="h-6 w-6">
-		<FaExternalLinkAlt />
-	</div>
-	<span class="mx-3">Export</span>
-</button>
+<Button on:click={loadModal} icon="mdi:open-in-new">
+Export
+</Button>

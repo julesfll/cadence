@@ -1,8 +1,6 @@
 <script lang="ts">
 	import TextArtistList from '$lib/components/TextArtistList.svelte';
-	import FaPlus from 'svelte-icons/fa/FaPlus.svelte';
-	import FaCheck from 'svelte-icons/fa/FaCheck.svelte';
-	import FaStopwatch from 'svelte-icons/fa/FaStopwatch.svelte';
+	import Icon from '@iconify/svelte';
 	import { selectedTracks } from '$lib/stores';
 
 	export let track: SpotifyApi.TrackObjectFull | SpotifyApi.TrackObjectSimplified;
@@ -41,9 +39,9 @@
 	<div class="flex items-center group-hover:text-blue-600">
 		<div class="h-5 w-5 m-3">
 			{#if trackSelected}
-				<FaCheck />
+				<Icon icon="mdi:check" class="h-5 w-5" />
 			{:else}
-				<FaPlus />
+				<Icon icon="mdi:plus" class="h-5 w-5" />
 			{/if}
 		</div>
 		<span class="sr-only">Add track</span>
@@ -66,7 +64,7 @@
 		{#if track.tempo}
 			<div class="inline-flex items-center bg-gray-200 px-1.5 py-0.5 text-xs font-medium">
 				<div class="mr-1 h-3 w-3">
-					<FaStopwatch />
+					<Icon icon="mdi:metronome-tick" class="h-3 w-3" />
 				</div>
 				{Math.round(track.tempo)} BPM
 			</div>

@@ -37,7 +37,6 @@
 	"dependencies": {
 		"@auth/core": "^0.2.5",
 		"@auth/sveltekit": "^0.1.12",
-		"@types/spotify-api": "^0.0.19",
-		"svelte-icons": "^2.1.0"
+		"@types/spotify-api": "^0.0.19"
 	}
 }

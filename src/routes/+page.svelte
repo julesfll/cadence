@@ -7,10 +7,8 @@
 <main>
 	<section class="h-full bg-white p-3">
 		<h1 class="py-12 text-5xl font-semibold">Your daily jog, now with a soundtrack.</h1>
-		<button
-			on:click={() => signIn('spotify', { callbackUrl: '/builder' })}
-			class="border border-black py-3 px-5 font-bold hover:bg-gray-200 focus:outline-none focus:ring-8 focus:ring-gray-200"
-			>Login with Spotify</button
+		<Button on:click={() => signIn('spotify', { callbackUrl: '/builder' })} icon="mdi:spotify"
+			>Login with Spotify</Button
 		>
 	</section>
 	<section>
@@ -26,4 +24,3 @@
 	</section>
 </main>
 <!-- <pre>{JSON.stringify($page, null, 2)}</pre> -->
-<Button icon="ic:baseline-10k">Test</Button>

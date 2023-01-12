@@ -1,4 +1,6 @@
 <script lang="ts">
+	import Button from './atoms/Button.svelte';
+
 	export let bpm = 0;
 	const ROLLING_WINDOW_SIZE = 8;
 
@@ -18,8 +20,4 @@
 	}
 </script>
 
-<button
-	on:click={updateTempo}
-	class="flex cursor-pointer items-center py-2 px-2.5 text-sm hover:bg-gray-200 active:bg-gray-400"
-	>Tap a beat</button
->
+<Button on:click={updateTempo}>Tap a beat</Button>

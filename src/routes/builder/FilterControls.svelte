@@ -1,7 +1,6 @@
 <script lang="ts">
 	import RangeSlider from 'svelte-range-slider-pips';
-	import FaChevronUp from 'svelte-icons/fa/FaChevronUp.svelte';
-	import FaUndo from 'svelte-icons/fa/FaUndo.svelte';
+	import Button from '$lib/components/atoms/Button.svelte';
 	import { createTempoFilter } from '$lib/utils';
 	import TrackList from '$lib/components/TrackList.svelte';
 	import TempoTapper from '$lib/components/TempoTapper.svelte';
@@ -28,15 +27,7 @@
 		<p>{$selectedTracks.length} songs selected</p>
 		<ExportMenu />
 	</div>
-	<button
-		type="button"
-		class="flex cursor-pointer items-center p-2.5 hover:bg-gray-200 focus:outline-none focus:ring-4 focus:ring-gray-200"
-	>
-		<div class="h-6 w-6">
-			<FaChevronUp />
-		</div>
-		<span class="sr-only">Show songs</span>
-	</button>
+	<Button icon="mdi:chevron-up" srText="Show songs" variant="inverted" />
 </div>
 <div class="max-h-16 overflow-y-scroll">
 	<!-- <TrackList tracks={$selectedTracks} /> -->
@@ -62,16 +53,7 @@
 		/>
 	</div>
 	<div class="flex items-center space-x-1">
-		<button
-			on:click={resetBpms}
-			type="button"
-			class="flex cursor-pointer items-center py-2 px-2.5 hover:bg-gray-200 focus:outline-none focus:ring-4 focus:ring-gray-200"
-		>
-			<div class="h-5 w-5">
-				<FaUndo />
-			</div>
-			<span class="sr-only">Reset</span>
-		</button>
+		<Button on:click={resetBpms} icon="mdi:restore" srText="Reset BPM" variant="inverted"/>
 		<input
 			bind:value={bpms[0]}
 			type="number"
