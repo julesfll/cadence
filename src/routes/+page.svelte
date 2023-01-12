@@ -1,5 +1,6 @@
 <script>
-	import { signIn, signOut } from '@auth/sveltekit/client';
+	import { signIn } from '@auth/sveltekit/client';
+	import Button from '$lib/components/atoms/Button.svelte';
 	import { page } from '$app/stores';
 </script>
 
@@ -24,4 +25,5 @@
 		</p>
 	</section>
 </main>
-<pre>{JSON.stringify($page, null, 2)}</pre>
+<!-- <pre>{JSON.stringify($page, null, 2)}</pre> -->
+<Button icon="ic:baseline-10k">Test</Button>

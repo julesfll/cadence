@@ -1,6 +1,5 @@
 <script lang="ts">
 	import type { PageData } from './$types';
-	import FaHeart from 'svelte-icons/fa/FaHeart.svelte';
 	import { Tab, TabGroup, TabList, TabPanels, TabPanel } from '@rgossiaux/svelte-headlessui';
 	import AlbumGrid from '$lib/components/AlbumGrid.svelte';
 	import ArtistGrid from '$lib/components/ArtistGrid.svelte';
