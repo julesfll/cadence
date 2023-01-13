@@ -46,6 +46,10 @@ export async function load({ locals, params }) {
 		artistAlbums: albumsRes,
 		artistTopTracks: topTracksRes,
 		artistRelatedArtists: relatedArtistsRes,
-		topTracksWithTempos: tracksWithTempos
+		topTracksWithTempos: tracksWithTempos,
+		meta: {
+			title: artistRes.name,
+			description: `Artist page for ${artistRes.name}`
+		}
 	};
 }

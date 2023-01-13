@@ -22,6 +22,10 @@ export async function load({ locals }) {
 	return {
 		userPlaylists: playlistRes,
 		userArtists: artistRes,
-		userAlbums: albumRes
+		userAlbums: albumRes,
+		meta: {
+			title: 'Library',
+			description: 'All your saved songs, artists, playlists, and albums on Spotify.'
+		}
 	};
 }

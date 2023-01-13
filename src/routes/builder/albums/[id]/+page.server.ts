@@ -26,6 +26,10 @@ export async function load({ params, locals }) {
 
 	return {
 		album: res,
-		tracksWithTempos
+		tracksWithTempos,
+		meta: {
+			title: res.name,
+			description: `Album ${res.name} by ${res.artists.join(', ')}`
+		}
 	};
 }

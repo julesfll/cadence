@@ -21,6 +21,10 @@ export async function load({ locals }) {
 	}
 
 	return {
-		topTracksWithTempos: tracksWithTempos
+		topTracksWithTempos: tracksWithTempos,
+		meta: {
+			title: 'Profile',
+			description: 'Profile page'
+		}
 	};
 }

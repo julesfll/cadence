@@ -24,6 +24,10 @@ export async function load({ params, locals }) {
 
 	return {
 		playlist: resPlaylist,
-		tracksWithTempos
+		tracksWithTempos,
+		meta: {
+			title: resPlaylist.name,
+			description: `Playlist page for ${resPlaylist.name}`
+		}
 	};
 }

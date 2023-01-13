@@ -24,6 +24,10 @@ export async function load({ url, locals }) {
 	return {
 		searchResults: res,
 		tracksWithTempos,
-		searchQuery
+		searchQuery,
+		meta: {
+			title: `Results for ${searchQuery}`,
+			description: 'Search page: search Spotify for songs, artists, playlists, and albums'
+		}
 	};
 }

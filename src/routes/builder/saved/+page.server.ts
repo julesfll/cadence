@@ -21,6 +21,10 @@ export async function load({ locals }) {
 	}
 
 	return {
-		savedTracksWithTempos: tracksWithTempos
+		savedTracksWithTempos: tracksWithTempos,
+		meta: {
+			title: 'Saved Songs',
+			description: 'Your saved songs on Spotify'
+		}
 	};
 }
