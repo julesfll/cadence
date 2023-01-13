@@ -28,7 +28,7 @@
 				/>
 			{:else}
 				<div
-					class={`bg-gray-500 grid place-items-center absolute top-0 bottom-0 h-full w-full object-cover ${
+					class={`bg-gray-700 grid place-items-center absolute top-0 bottom-0 h-full w-full object-cover ${
 						round ? 'rounded-full' : 'rounded-md'
 					}`}
 				>

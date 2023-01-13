@@ -1,12 +1,13 @@
 <script lang="ts">
 	import AlbumItem from '$lib/components/AlbumItem.svelte';
+	import CardListGrid from './atoms/CardListGrid.svelte';
 
 	export let dateMode: boolean = false;
 	export let albums: (SpotifyApi.AlbumObjectFull | SpotifyApi.AlbumObjectSimplified)[];
 </script>
 
-<ul class="grid grid-cols-2 sm:grid-cols-4 gap-4 p-4">
+<CardListGrid>
 	{#each albums as album}
 		<AlbumItem {album} {dateMode} />
 	{/each}
-</ul>
+</CardListGrid>

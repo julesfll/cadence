@@ -1,5 +1,6 @@
 <script lang="ts">
-	import TextArtistList from "./TextArtistList.svelte";
+	import CardListItem from './atoms/CardListItem.svelte';
+	import TextArtistList from './TextArtistList.svelte';
 
 	export let album: SpotifyApi.AlbumObjectSimplified;
 	export let dateMode = false;
@@ -9,21 +10,22 @@
 	}
 </script>
 
-<a
+<CardListItem
 	href={`/builder/albums/${album.id}`}
-	class="block rounded-lg border border-gray-200 bg-white p-4 shadow-sm transition-all hover:bg-gray-100 hover:shadow-md"
+	image={album.images.length
+		? {
+				src: album.images[0].url,
+				alt: album.name
+		  }
+		: undefined}
+	placeholderIcon="mdi:album"
 >
-	<li>
-		<img class="h-full w-full object-cover" src={album.images[0].url} alt={album.name} />
-		<h3 class="truncate mb-2 mt-2 text-md font-bold tracking-tight text-black">
-			{album.name}
-		</h3>
-		<p class="text-sm font-normal text-gray-700">
-			{#if dateMode}
-				{new Date(album.release_date).getFullYear()} • {capitalizeFirstLetter(album.album_type)}
-			{:else}
-				<TextArtistList artists={album.artists} />
-			{/if}
-		</p>
-	</li>
-</a>
+	<span slot="title">{album.name}</span>
+	<span slot="subtitle">
+		{#if dateMode}
+			{new Date(album.release_date).getFullYear()} • {capitalizeFirstLetter(album.album_type)}
+		{:else}
+			<TextArtistList artists={album.artists} />
+		{/if}
+	</span>
+</CardListItem>

@@ -1,9 +1,11 @@
 <script lang="ts">
-  import ArtistItem from '$lib/components/ArtistItem.svelte';
-  export let artists: SpotifyApi.ArtistObjectFull[];
+	import ArtistItem from '$lib/components/ArtistItem.svelte';
+	import CardListGrid from './atoms/CardListGrid.svelte';
+	export let artists: SpotifyApi.ArtistObjectFull[];
 </script>
-<ul class="grid grid-cols-2 sm:grid-cols-4 gap-4 p-4">
-  {#each artists as artist}
-    <ArtistItem {artist} />
-  {/each}
-</ul>
+
+<CardListGrid>
+	{#each artists as artist}
+		<ArtistItem {artist} />
+	{/each}
+</CardListGrid>
