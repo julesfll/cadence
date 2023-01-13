@@ -1,6 +1,7 @@
 <script lang="ts">
 	import AlbumGrid from '$lib/components/AlbumGrid.svelte';
 	import ArtistGrid from '$lib/components/ArtistGrid.svelte';
+	import Heading from '$lib/components/atoms/Heading.svelte';
 	import TrackList from '$lib/components/TrackList.svelte';
 	import { Tab, TabGroup, TabList, TabPanels, TabPanel } from '@rgossiaux/svelte-headlessui';
 	import type { PageData } from './$types';
@@ -16,14 +17,14 @@
 	<div class="flex justify-center">
 		<img src={artist.images[0].url} alt={artist.name} class="rounded-full h-40 w-40 object-cover" />
 	</div>
-	<h1 class="p-3 text-6xl font-bold mb-2">{artist.name}</h1>
+	<Heading level="h1">{artist.name}</Heading>
 </section>
 <section>
-	<h2 class="p-3 font-bold text-xl">Popular</h2>
+	<Heading level="h2">Popular</Heading>
 	<TrackList tracks={topTracksWithTempos} />
 </section>
 <section>
-	<h2 class="p-3 font-bold text-xl">Discography</h2>
+	<Heading level="h2">Discography</Heading>
 	<TabGroup>
 		<TabList class="flex border-b text-sm font-medium text-gray-500">
 			<Tab
@@ -56,7 +57,7 @@
 	</TabGroup>
 </section>
 <section>
-	<h2 class="p-3 font-bold text-xl">Fans also like</h2>
+	<Heading level="h2">Fans also like</Heading>
 	<!-- TODO: artists not loading properly when link clicked -->
 	<ArtistGrid artists={artistRelatedArtists} />
 </section>

@@ -4,6 +4,7 @@
 	import { filterTracks } from '$lib/utils';
 	import { trackFilter } from '$lib/stores';
 	import type { TrackWithTempo } from '$lib/types';
+	import Heading from './atoms/Heading.svelte';
 
 	export let tracks: TrackWithTempo[];
 	export let showAlbum = true;
@@ -32,7 +33,7 @@
 		</li>
 	{/each}
 </ul>
-<h2>Hidden</h2>
+<Heading level="h3">Hidden</Heading>
 <ul>
 	{#each hiddenTracks as track, i}
 		<li>

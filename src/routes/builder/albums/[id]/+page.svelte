@@ -1,4 +1,5 @@
 <script lang="ts">
+	import Heading from '$lib/components/atoms/Heading.svelte';
 	import TrackList from '$lib/components/TrackList.svelte';
 	import type { PageData } from './$types';
 
@@ -6,5 +7,5 @@
 	const { album, tracksWithTempos } = data;
 </script>
 
-<h1 class="p-3 text-3xl mb-2">{album.name}</h1>
+<Heading level="h1">{album.name}</Heading>
 <TrackList tracks={tracksWithTempos} showAlbum={false} />

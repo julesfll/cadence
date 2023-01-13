@@ -5,6 +5,7 @@
 	import PlaylistGrid from '$lib/components/PlaylistGrid.svelte';
 	import AlbumGrid from '$lib/components/AlbumGrid.svelte';
 	import type { PageData } from './$types';
+	import Heading from '$lib/components/atoms/Heading.svelte';
 
 	export let data: PageData;
 </script>
@@ -80,13 +81,13 @@
 	<TabPanels>
 		<TabPanel>
 			<section>
-				<h2 class="px-3 py-1 text-xl font-bold">Songs</h2>
+				<Heading level="h2">Songs</Heading>
 				<TrackList tracks={data.tracksWithTempos.slice(0, 4)} />
-				<h2 class="px-3 py-1 text-xl font-bold">Artists</h2>
+				<Heading level="h2">Artists</Heading>
 				<ArtistGrid artists={(data.searchResults?.artists?.items ?? []).slice(0, 4)} />
-				<h2 class="px-3 py-1 text-xl font-bold">Playlists</h2>
+				<Heading level="h2">Playlists</Heading>
 				<PlaylistGrid playlists={(data.searchResults?.playlists?.items ?? []).slice(0, 4)} />
-				<h2 class="px-3 py-1 text-xl font-bold">Albums</h2>
+				<Heading level="h2">Albums</Heading>
 				<AlbumGrid albums={(data.searchResults?.albums?.items ?? []).slice(0, 4)} />
 			</section>
 		</TabPanel>

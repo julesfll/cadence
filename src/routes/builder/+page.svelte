@@ -4,6 +4,7 @@
 	import AlbumGrid from '$lib/components/AlbumGrid.svelte';
 	import ArtistGrid from '$lib/components/ArtistGrid.svelte';
 	import PlaylistGrid from '$lib/components/PlaylistGrid.svelte';
+	import Heading from '$lib/components/atoms/Heading.svelte';
 
 	export let data: PageData;
 	const { items: userPlaylists } = data.userPlaylists;
@@ -15,7 +16,7 @@
 	const userAlbums = data.userAlbums.items.map((albumItem) => albumItem.album);
 </script>
 
-<h1 class="p-4 text-xl font-bold">Library</h1>
+<Heading level="h1">Library</Heading>
 <TabGroup>
 	<TabList class="flex border-b text-sm font-medium text-gray-500">
 		<Tab
