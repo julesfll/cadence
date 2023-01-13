@@ -2,6 +2,7 @@
 	import TextArtistList from '$lib/components/TextArtistList.svelte';
 	import Icon from '@iconify/svelte';
 	import { selectedTracks } from '$lib/stores';
+	import Badge from '$lib/components/atoms/Badge.svelte';
 
 	export let track: SpotifyApi.TrackObjectFull | SpotifyApi.TrackObjectSimplified;
 	export let showAlbum = true;
@@ -62,12 +63,7 @@
 			<TextArtistList artists={track.artists} />
 		</p>
 		{#if track.tempo}
-			<div class="inline-flex items-center bg-gray-200 px-1.5 py-0.5 text-xs font-medium">
-				<div class="mr-1 h-3 w-3">
-					<Icon icon="mdi:metronome-tick" class="h-3 w-3" />
-				</div>
-				{Math.round(track.tempo)} BPM
-			</div>
+			<Badge icon="mdi:metronome-tick">{Math.round(track.tempo)} BPM</Badge>
 		{/if}
 	</div>
 </div>
