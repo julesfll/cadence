@@ -43,13 +43,13 @@
 	{#if 'album' in track && showAlbum}
 		<div class="shrink-0">
 			<img
-				class="h-18 w-18 object-cover"
+				class="h-16 w-16 object-cover"
 				src={track.album.images[track.album.images.length - 1].url}
 				alt={track.album.name}
 			/>
 		</div>
 	{/if}
-	<div class="flex-1 flex flex-col items-start justify-between ml-2 h-18">
+	<div class="justify-center flex-1 flex flex-col ml-2 h-16 space-y-1">
 		<h3 class="truncate">{track.name}</h3>
 		<p class="text-sm text-gray-500">
 			{#if track.explicit}
@@ -57,17 +57,14 @@
 			{/if}
 			<TextArtistList artists={track.artists} />
 		</p>
-		{#if track.tempo}
-			<Badge icon="mdi:metronome-tick">{Math.round(track.tempo)} BPM</Badge>
-		{/if}
 	</div>
 	{#if trackSelected}
 		<div class="p-3 bg-gray-200 rounded-full">
 			<Icon icon="mdi:check" class="h-5 w-5 " />
 		</div>
-	{:else}
-		<div class="p-3">
-			<Icon icon="mdi:plus" class="h-5 w-5" />
+	{:else if track.tempo}
+		<div class="mx-2">
+			<Badge icon="mdi:metronome-tick">{Math.round(track.tempo)} BPM</Badge>
 		</div>
 	{/if}
 </div>
