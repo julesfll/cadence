@@ -34,7 +34,7 @@
 	on:mouseout={() => handlePauseTrack()}
 	on:focus={() => handlePlayTrack(track.preview_url)}
 	on:blur={() => handlePauseTrack()}
-	class={`flex items-center p-2 rounded-lg focus:ring-4 focus:outline-none focus:ring-gray-200
+	class={`flex items-center p-3 rounded-lg focus:ring-4 focus:outline-none focus:ring-gray-200
 	${trackSelected ? 'bg-gray-300 hover:bg-gray-300' : 'hover:bg-gray-200'}`}
 	on:click={toggleTrack}
 	on:keypress={toggleTrack}
@@ -43,13 +43,13 @@
 	{#if 'album' in track && showAlbum}
 		<div class="shrink-0">
 			<img
-				class="h-20 w-20 object-cover"
+				class="h-18 w-18 object-cover"
 				src={track.album.images[track.album.images.length - 1].url}
 				alt={track.album.name}
 			/>
 		</div>
 	{/if}
-	<div class="flex-1 flex flex-col items-start justify-between ml-2 h-20">
+	<div class="flex-1 flex flex-col items-start justify-between ml-2 h-18">
 		<h3 class="truncate">{track.name}</h3>
 		<p class="text-sm text-gray-500">
 			{#if track.explicit}

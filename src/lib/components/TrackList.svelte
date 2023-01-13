@@ -26,7 +26,7 @@
 </script>
 
 <AudioPlayer bind:playTrack bind:pauseTrack {src} />
-<ul>
+<ul class="space-y-2">
 	{#each shownTracks as track, i}
 		<li>
 			<TrackItem {track} {handlePlayTrack} {handlePauseTrack} {showAlbum} />
@@ -34,7 +34,7 @@
 	{/each}
 </ul>
 <Heading level="h3">Hidden</Heading>
-<ul>
+<ul class="space-y-2">
 	{#each hiddenTracks as track, i}
 		<li>
 			<TrackItem {track} {handlePlayTrack} {handlePauseTrack} {showAlbum} />
