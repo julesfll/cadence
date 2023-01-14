@@ -13,6 +13,6 @@
 	<Heading level="h2">Hi {data.session?.user?.name}</Heading>
 	<Button on:click={() => signOut()} icon="mdi:logout">Logout</Button>
 	<p class="mt-2">Check it out!</p>
-	<p>Out of your top 50 songs from the past few months, these would work well for your next run.</p>
-	<TrackList tracks={data.topTracksWithTempos} />
+	<p class="mb-2">Out of your top 50 songs from the past few months, these would work well for your next run.</p>
+	<TrackList tracks={data.topTracksWithTempos} showHidden={false} />
 </Container>
