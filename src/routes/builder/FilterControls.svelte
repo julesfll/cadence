@@ -6,8 +6,16 @@
 	import TempoTapper from '$lib/components/TempoTapper.svelte';
 	import { trackFilter } from '$lib/stores';
 	import { selectedTracks } from '$lib/stores';
-	import { INITIAL_ALLOW_HALFTIME, INITIAL_BPMS, TAPPER_RANGE } from '$lib/constants';
+	import {
+		INITIAL_ALLOW_HALFTIME,
+		INITIAL_BPMS,
+		RANGE_MAX,
+		RANGE_MIN,
+		TAPPER_RANGE
+	} from '$lib/constants';
 	import ExportMenu from './ExportMenu.svelte';
+	import InputField from '$lib/components/atoms/InputField.svelte';
+	import CheckboxField from '$lib/components/atoms/CheckboxField.svelte';
 
 	let tapperBpm = (INITIAL_BPMS[0] + INITIAL_BPMS[1]) / 2;
 	let bpms = INITIAL_BPMS;
@@ -41,8 +49,8 @@
 <form>
 	<div class="p-2">
 		<RangeSlider
-			min={100}
-			max={200}
+			min={RANGE_MIN}
+			max={RANGE_MAX}
 			float
 			range
 			pushy
@@ -52,26 +60,23 @@
 			bind:values={bpms}
 		/>
 	</div>
-	<div class="flex items-center space-x-1">
-		<Button on:click={resetBpms} icon="mdi:restore" srText="Reset BPM" variant="inverted"/>
-		<input
+	<div class="flex items-center space-x-2">
+		<Button on:click={resetBpms} icon="mdi:restore" srText="Reset BPM" variant="inverted" />
+		<InputField
 			bind:value={bpms[0]}
+			name="minTempo"
 			type="number"
-			class="block w-16 border border-black bg-gray-50 p-1 text-sm text-gray-900 focus:border-blue-500 focus:ring-gray-500"
+			min={RANGE_MIN}
+			max={RANGE_MAX}
 		/>
-		<input
+		<InputField
 			bind:value={bpms[1]}
+			name="maxTempo"
 			type="number"
-			class="block w-16 border border-black bg-gray-50 p-1 text-sm text-gray-900 focus:border-blue-500 focus:ring-gray-500"
+			min={RANGE_MIN}
+			max={RANGE_MAX}
 		/>
 		<TempoTapper bind:bpm={tapperBpm} />
-		<label class="flex items-center">
-			<input
-				bind:checked={allowHalftime}
-				type="checkbox"
-				class="h-4 w-4 border border-black bg-gray-100"
-			/>
-			<span class="ml-2 text-sm"> Allow halftime </span>
-		</label>
+		<CheckboxField bind:checked={allowHalftime} label="Allow halftime" />
 	</div>
 </form>

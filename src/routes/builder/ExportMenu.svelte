@@ -10,6 +10,9 @@
 	import Button from '$lib/components/atoms/Button.svelte';
 	import Modal from '$lib/components/atoms/Modal.svelte';
 	import Heading from '$lib/components/atoms/Heading.svelte';
+	import SelectField from '$lib/components/atoms/SelectField.svelte';
+	import InputField from '$lib/components/atoms/InputField.svelte';
+	import CheckboxField from '$lib/components/atoms/CheckboxField.svelte';
 
 	let selectedAddPlaylistId = '';
 	let removeDuplicates = true;
@@ -53,25 +56,29 @@
 	<Heading slot="title" level="h2">Export Playlist</Heading>
 	<p slot="description">Export your songs to a playlist</p>
 	<div slot="content">
-		<form on:submit|preventDefault={handleSubmit}>
-			<select class="p-2 mt-4" name="selectedId" bind:value={selectedAddPlaylistId}>
+		<form on:submit|preventDefault={handleSubmit} class="space-y-3">
+			<SelectField name="selectedId" bind:value={selectedAddPlaylistId}>
 				<option value="" disabled selected>Select a playlist</option>
 				<option value="new">New playlist...</option>
 				{#each userEditablePlaylists as playlist}
 					<option value={playlist.id}>{playlist.name}</option>
 				{/each}
-			</select>
+			</SelectField>
 			{#if selectedAddPlaylistId === 'new'}
-				<input
-					name="newPlaylistName"
-					bind:value={newPlaylistName}
-					placeholder="Your playlist name"
-				/>
+				<div class="mt-2">
+					<InputField
+						name="newPlaylistName"
+						bind:value={newPlaylistName}
+						placeholder="Your playlist name"
+						required={selectedAddPlaylistId === 'new'}
+					/>
+				</div>
 			{/if}
-			<label class="text-sm">
-				Remove duplicates
-				<input type="checkbox" bind:value={removeDuplicates} />
-			</label>
+			<CheckboxField
+				name="removeDuplicates"
+				label="Remove duplicates"
+				bind:checked={removeDuplicates}
+			/>
 
 			<Button type="submit" disabled={!selectedAddPlaylistId}>Export</Button>
 			<Button type="button" on:click={() => (isOpen = false)} variant="inverted">Cancel</Button>

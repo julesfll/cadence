@@ -18,7 +18,7 @@
 	<button
 		class={`inline-flex items-center rounded-lg py-2.5 text-center text-sm focus:ring-4 focus:outline-none font-medium
 		${variantStyles[variant]}
-		${disabled ? 'cursor-not-allowed bg-blue-400' : ''}
+		${disabled ? 'cursor-not-allowed bg-blue-400 hover:bg-blue-400' : ''}
 		${$$slots.default ? 'px-5' : 'px-2.5'}`}
 		{type}
 		on:click
