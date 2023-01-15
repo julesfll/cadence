@@ -6,7 +6,7 @@
 		DialogDescription
 	} from '@rgossiaux/svelte-headlessui';
 
-	export let isOpen = true;
+	export let isOpen = false;
 </script>
 
 <Dialog
@@ -15,7 +15,7 @@
 	class="fixed inset-0 flex items-center justify-center"
 >
 	<DialogOverlay class="fixed inset-0 bg-black/30" aria-hidden="true" />
-	<div class="border z-10 bg-white max-w-sm rounded-lg p-6">
+	<div class="z-10 bg-white max-w-sm rounded-lg p-6 m-1">
 		<DialogTitle><slot name="title">Title needed</slot></DialogTitle>
 		<DialogDescription><slot name="description">Description needed</slot></DialogDescription>
 		<slot name="content" />

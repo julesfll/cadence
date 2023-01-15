@@ -7,7 +7,7 @@
 		<slot />
 	</h1>
 {:else if level === 'h2'}
-	<h2 class="mb-2 text-gray-900 text-4xl font-bold">
+	<h2 class="mb-2 mt-2 text-gray-900 text-4xl font-bold">
 		<slot />
 	</h2>
 {:else if level === 'h3'}
