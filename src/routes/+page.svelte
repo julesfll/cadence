@@ -4,6 +4,7 @@
 	import { page } from '$app/stores';
 	import Heading from '$lib/components/atoms/Heading.svelte';
 	import Container from '$lib/components/atoms/Container.svelte';
+	import Modal from '$lib/components/atoms/Modal.svelte';
 </script>
 
 <main>

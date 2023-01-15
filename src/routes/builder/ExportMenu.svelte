@@ -8,11 +8,13 @@
 	import { selectedTracks } from '$lib/stores';
 	import { goto } from '$app/navigation';
 	import Button from '$lib/components/atoms/Button.svelte';
+	import Modal from '$lib/components/atoms/Modal.svelte';
+	import Heading from '$lib/components/atoms/Heading.svelte';
 
-	let isOpen = false;
 	let selectedAddPlaylistId = '';
 	let removeDuplicates = true;
 	let newPlaylistName = '';
+	let isOpen: boolean;
 
 	let userEditablePlaylists: SpotifyApi.PlaylistObjectSimplified[] = [];
 
@@ -47,34 +49,34 @@
 	}
 </script>
 
-<Dialog class="fixed p-3 top-0 left-0 bg-white" open={isOpen} on:close={() => (isOpen = false)}>
-	<DialogOverlay class="fixed top-0 left-0 bg-black opacity-30" />
+<Modal bind:isOpen>
+	<Heading slot="title" level="h2">Export Playlist</Heading>
+	<p slot="description">Export your songs to a playlist</p>
+	<div slot="content">
+		<form on:submit|preventDefault={handleSubmit}>
+			<select class="p-2 mt-4" name="selectedId" bind:value={selectedAddPlaylistId}>
+				<option value="" disabled selected>Select a playlist</option>
+				<option value="new">New playlist...</option>
+				{#each userEditablePlaylists as playlist}
+					<option value={playlist.id}>{playlist.name}</option>
+				{/each}
+			</select>
+			{#if selectedAddPlaylistId === 'new'}
+				<input
+					name="newPlaylistName"
+					bind:value={newPlaylistName}
+					placeholder="Your playlist name"
+				/>
+			{/if}
+			<label class="text-sm">
+				Remove duplicates
+				<input type="checkbox" bind:value={removeDuplicates} />
+			</label>
 
-	<DialogTitle>Export Playlist</DialogTitle>
-	<DialogDescription>Export your songs to a playlist</DialogDescription>
+			<Button type="submit" disabled={!selectedAddPlaylistId}>Export</Button>
+			<Button type="button" on:click={() => (isOpen = false)} variant="inverted">Cancel</Button>
+		</form>
+	</div>
+</Modal>
 
-	<form on:submit|preventDefault={handleSubmit}>
-		<select class="p-2 mt-4" name="selectedId" bind:value={selectedAddPlaylistId}>
-			<option value="" disabled selected>Select a playlist</option>
-			<option value="new">New playlist...</option>
-			{#each userEditablePlaylists as playlist}
-				<option value={playlist.id}>{playlist.name}</option>
-			{/each}
-		</select>
-		{#if selectedAddPlaylistId === 'new'}
-			<input name="newPlaylistName" bind:value={newPlaylistName} placeholder="Your playlist name" />
-		{/if}
-		<label class="text-sm">
-			Remove duplicates
-			<input type="checkbox" bind:value={removeDuplicates} />
-		</label>
-
-		<Button disabled={!selectedAddPlaylistId}>Export</Button>
-	</form>
-
-	<Button on:click={() => (isOpen = false)} variant="inverted">Cancel</Button>
-</Dialog>
-
-<Button on:click={loadModal} icon="mdi:open-in-new">
-Export
-</Button>
+<Button on:click={loadModal} icon="mdi:open-in-new">Export</Button>
