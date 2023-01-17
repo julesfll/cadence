@@ -7,7 +7,7 @@
 	import FeedbackForm from '$lib/components/FeedbackForm.svelte';
 </script>
 
-<nav class="container flex items-center justify-between p-3">
+<nav class="flex items-center justify-between p-3">
 	<div class="flex text-gray-700">
 		<a href="/" class="flex items-center">
 			<div class="h-6 w-6 ">

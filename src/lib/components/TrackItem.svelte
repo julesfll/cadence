@@ -49,9 +49,9 @@
 			/>
 		</div>
 	{/if}
-	<div class="justify-center flex-1 flex flex-col ml-2 h-16 space-y-1">
+	<div class="justify-center truncate flex-1 flex flex-col ml-2 h-16 space-y-1">
 		<h3 class="truncate">{track.name}</h3>
-		<p class="text-sm text-gray-500 z-2-">
+		<p class="truncate text-sm text-gray-500 z-2-">
 			{#if track.explicit}
 				<span class="mr-1 bg-gray-200 px-1.5 py-0.5 text-xs font-medium">E</span>
 			{/if}
