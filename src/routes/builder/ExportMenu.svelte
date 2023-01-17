@@ -1,10 +1,4 @@
 <script lang="ts">
-	import {
-		Dialog,
-		DialogOverlay,
-		DialogTitle,
-		DialogDescription
-	} from '@rgossiaux/svelte-headlessui';
 	import { selectedTracks } from '$lib/stores';
 	import { goto } from '$app/navigation';
 	import Button from '$lib/components/atoms/Button.svelte';
@@ -86,4 +80,4 @@
 	</div>
 </Modal>
 
-<Button on:click={loadModal} icon="mdi:open-in-new">Export</Button>
+<Button on:click={loadModal} icon="mdi:open-in-new"><slot /></Button>

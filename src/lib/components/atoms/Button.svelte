@@ -10,7 +10,7 @@
 
 	const variantStyles = {
 		primary: 'text-white bg-blue-700 hover:bg-blue-800 focus:ring-blue-300',
-		inverted: 'text-gray-700 hover:bg-gray-100 focus:ring-gray-200'
+		inverted: 'text-gray-700 hover:bg-gray-100 focus:ring-gray-200 active:bg-gray-200'
 	};
 </script>
 

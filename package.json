@@ -37,6 +37,7 @@
 	"dependencies": {
 		"@auth/core": "^0.2.5",
 		"@auth/sveltekit": "^0.1.12",
+		"@googleapis/sheets": "^4.0.1",
 		"@types/spotify-api": "^0.0.19"
 	}
 }

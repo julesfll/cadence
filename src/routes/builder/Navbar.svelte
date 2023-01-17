@@ -4,6 +4,7 @@
 
 	import Icon from '@iconify/svelte';
 	import Button from '$lib/components/atoms/Button.svelte';
+	import FeedbackForm from '$lib/components/FeedbackForm.svelte';
 </script>
 
 <nav class="container flex items-center justify-between p-3">
@@ -16,6 +17,7 @@
 		</a>
 	</div>
 	<div class="flex">
+		<FeedbackForm />
 		<Button href="/builder/search" icon="mdi:search" variant="inverted"/>
 		<Button href="/builder" icon="mdi:bookshelf" variant="inverted"/>
 		<Button href="/builder/profile" icon="mdi:account" variant="inverted">{username}</Button>

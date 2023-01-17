@@ -232,7 +232,7 @@ export async function getTracksWithTempos(
 	}
 	const tracksWithTempos = audioFeaturesRes.audio_features.map((audioFeature, i) => ({
 		...tracks[i],
-		tempo: audioFeature.tempo
+		tempo: audioFeature?.tempo
 	}));
 	return tracksWithTempos;
 }

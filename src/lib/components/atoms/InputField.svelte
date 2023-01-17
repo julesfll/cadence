@@ -1,12 +1,12 @@
 <script lang="ts">
 	export let name: string;
-	export let value: string | number;
+	export let value: string | number | undefined;
 	export let label = '';
 	export let placeholder: string | undefined = undefined;
 	export let required = false;
 	export let min: number | undefined = undefined;
 	export let max: number | undefined = undefined;
-	export let type: 'text' | 'email' | 'number' = 'text';
+	export let type: 'text' | 'email' | 'number' | 'textarea' = 'text';
 	export let error = '';
 
 	// https://stackoverflow.com/a/71193441

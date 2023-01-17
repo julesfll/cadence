@@ -22,4 +22,4 @@
 	}
 </script>
 
-<Button icon="mdi:gesture-tap" on:click={updateTempo}>Tap a beat</Button>
+<Button icon="mdi:gesture-tap" variant="inverted" on:click={updateTempo}>Tap a beat</Button>
