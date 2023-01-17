@@ -12,7 +12,7 @@
 
 	let form = {
 		error: $page.error,
-		category: 'feature',
+		category: 'improvement',
 		email: $page.data.session?.user?.email || ''
 	};
 
@@ -36,7 +36,7 @@
 		// TODO: Erro handling
 		form = {
 			error: $page.error,
-			category: 'feature',
+			category: 'improvement',
 			email: $page.data.session?.user?.email || ''
 		};
 		isOpen = false;
@@ -50,8 +50,8 @@
 		<form on:submit|preventDefault={handleSubmit} class="space-y-3">
 			<InputField name="email" bind:value={form.email} label="Email (optional)" />
 			<SelectField name="category" bind:value={form.category} label="Category">
-				<option value="feature">Feature</option>
 				<option value="improvement">Improvement</option>
+				<option value="feature">Feature</option>
 				<option value="bug">Bug</option>
 				<option value="other">Other</option>
 			</SelectField>

@@ -12,6 +12,7 @@
 	export let tracks: TrackWithTempo[];
 	export let showAlbum = true;
 	export let showHidden = true;
+	export let isDrawer = false;
 
 	let src: string | null;
 	let playTrack: () => void;
@@ -38,17 +39,19 @@
 </script>
 
 <AudioPlayer bind:playTrack bind:pauseTrack {src} />
-<div class="py-3">
-	<Button icon="mdi:plus" on:click={addAll}>Add all shown</Button>
-</div>
+{#if !isDrawer}
+	<div class="py-3">
+		<Button icon="mdi:plus" on:click={addAll}>Add all shown</Button>
+	</div>
+{/if}
 <ul class="mb-2">
-	{#each shownTracks as track, i}
+	{#each isDrawer ? $selectedTracks : shownTracks as track, i}
 		<li>
 			<TrackItem {track} {handlePlayTrack} {handlePauseTrack} {showAlbum} />
 		</li>
 	{/each}
 </ul>
-{#if showHidden}
+{#if showHidden && !isDrawer}
 	<Disclosure let:open>
 		<DisclosureButton>
 			<div class="flex items-center text-gray-900 mb-2">

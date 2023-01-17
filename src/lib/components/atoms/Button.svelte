@@ -7,6 +7,7 @@
 	export let type: 'button' | 'submit' | 'reset' = 'button';
 	export let srText = '';
 	export let variant: 'primary' | 'inverted' = 'primary';
+	export let ariaControls: string | undefined = undefined;
 
 	const variantStyles = {
 		primary: 'text-white bg-blue-700 hover:bg-blue-800 focus:ring-blue-300',
@@ -23,6 +24,7 @@
 		{type}
 		on:click
 		{disabled}
+		aria-controls={ariaControls}
 	>
 		{#if icon}
 			<div class={`w-5 h-5 ${$$slots.default ? 'mr-2 -ml-1' : ''}`}>
