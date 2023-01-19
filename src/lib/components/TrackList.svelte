@@ -76,7 +76,7 @@
 				<h3 class=" text-3xl font-bold">
 					{hiddenTracks.length} hidden song{hiddenTracks.length === 1 ? '' : 's'}
 				</h3>
-				<Icon icon={`mdi:chevron-${open ? 'up' : 'down'}`} class="ml-1 h-7 w-7" />
+				<Icon icon="mdi:chevron-{open ? 'up' : 'down'}" class="ml-1 h-7 w-7" />
 			</div>
 		</DisclosureButton>
 		<DisclosurePanel>

@@ -5,7 +5,7 @@
 </script>
 
 <CardListItem
-	href={`/builder/artists/${artist.id}`}
+	href="/builder/artists/{artist.id}"
 	image={artist.images.length
 		? {
 				src: artist.images[0].url,

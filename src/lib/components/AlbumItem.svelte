@@ -11,7 +11,7 @@
 </script>
 
 <CardListItem
-	href={`/builder/albums/${album.id}`}
+	href="/builder/albums/{album.id}"
 	image={album.images.length
 		? {
 				src: album.images[0].url,

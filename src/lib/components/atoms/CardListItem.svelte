@@ -20,17 +20,15 @@
 		<div class="w-full pb-[100%] relative">
 			{#if image}
 				<img
-					class={`absolute top-0 bottom-0 h-full w-full object-cover ${
-						round ? 'rounded-full' : 'rounded-md'
-					}`}
+					class="absolute top-0 bottom-0 h-full w-full object-cover
+					{round ? 'rounded-full' : 'rounded-md'}"
 					src={image.src}
 					alt={image.alt}
 				/>
 			{:else}
 				<div
-					class={`bg-gray-700 grid place-items-center absolute top-0 bottom-0 h-full w-full object-cover ${
-						round ? 'rounded-full' : 'rounded-md'
-					}`}
+					class="bg-gray-700 grid place-items-center absolute top-0 bottom-0 h-full w-full object-cover
+					{round ? 'rounded-full' : 'rounded-md'}"
 				>
 					<Icon icon={placeholderIcon} class="h-1/2 w-1/2 text-slate-50" />
 				</div>

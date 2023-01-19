@@ -34,8 +34,8 @@
 	on:mouseout={() => handlePauseTrack()}
 	on:focus={() => handlePlayTrack(track.preview_url)}
 	on:blur={() => handlePauseTrack()}
-	class={`flex items-center p-3  focus:ring-4 focus:ring-inset focus:outline-none focus:ring-gray-200
-	${trackSelected ? 'bg-gray-300 hover:bg-gray-300' : 'hover:bg-gray-200'}`}
+	class="flex items-center p-3  focus:ring-4 focus:ring-inset focus:outline-none focus:ring-gray-200
+	{trackSelected ? 'bg-gray-300 hover:bg-gray-300' : 'hover:bg-gray-200'}"
 	on:click={toggleTrack}
 	on:keypress={toggleTrack}
 	tabindex="0"
