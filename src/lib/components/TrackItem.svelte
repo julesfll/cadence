@@ -62,7 +62,7 @@
 		<div class="p-3 bg-gray-200 rounded-full">
 			<Icon icon="mdi:check" class="h-5 w-5 " />
 		</div>
-	{:else if track.tempo}
+	{:else if 'tempo' in track}
 		<div class="ml-2">
 			<Badge icon="mdi:metronome-tick">{Math.round(track.tempo)} BPM</Badge>
 		</div>

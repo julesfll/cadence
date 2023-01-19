@@ -20,3 +20,9 @@ export function filterTracks(
 ): [TrackWithTempo[], TrackWithTempo[]] {
 	return partition(tracks, filter);
 }
+
+export function formatNumber(num: number): string {
+	const formatter = Intl.NumberFormat('en-US', { notation: 'compact' });
+
+	return formatter.format(num);
+}

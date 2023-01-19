@@ -6,12 +6,13 @@
 	export let href = '';
 	export let type: 'button' | 'submit' | 'reset' = 'button';
 	export let srText = '';
-	export let variant: 'primary' | 'inverted' = 'primary';
+	export let variant: 'primary' | 'inverted' | 'spotify' = 'primary';
 	export let ariaControls: string | undefined = undefined;
 
 	const variantStyles = {
 		primary: 'text-white bg-blue-700 hover:bg-blue-800 focus:ring-blue-300',
-		inverted: 'text-gray-700 hover:bg-gray-100 focus:ring-gray-200 active:bg-gray-200'
+		inverted: 'text-gray-700 hover:bg-gray-100 focus:ring-gray-200 active:bg-gray-200',
+		spotify: 'text-gray-800 bg-green-500 hover:bg-green-600 focus:ring-green-300',
 	};
 </script>
 
