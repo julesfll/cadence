@@ -42,5 +42,5 @@ export async function POST({ request, locals }) {
 		throw error(addTracksRes.error.status, addTracksRes.error.message);
 	}
 
-	return json(addTracksRes);
+	return json({ ...addTracksRes, playlistId: body.id });
 }

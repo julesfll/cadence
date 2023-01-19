@@ -21,7 +21,7 @@
 		<div>
 			{#if $selectedTracks.length}
 				<ExportMenu
-					>Export {$selectedTracks.length} song{$selectedTracks.length === 1 ? '' : 's'}</ExportMenu
+					>Add {$selectedTracks.length} song{$selectedTracks.length === 1 ? '' : 's'} to playlist</ExportMenu
 				>
 				<Button on:click={clearTracks} icon="mdi:trash" variant="inverted">Remove All</Button>
 			{:else}
