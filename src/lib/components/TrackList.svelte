@@ -39,19 +39,37 @@
 </script>
 
 <AudioPlayer bind:playTrack bind:pauseTrack {src} />
-{#if !isDrawer}
+{#if !isDrawer && shownTracks.length}
 	<div class="py-3">
 		<Button icon="mdi:plus" on:click={addAll}>Add all shown</Button>
 	</div>
 {/if}
-<ul class="mb-2">
-	{#each isDrawer ? $selectedTracks : shownTracks as track, i}
-		<li>
-			<TrackItem {track} {handlePlayTrack} {handlePauseTrack} {showAlbum} />
-		</li>
-	{/each}
-</ul>
-{#if showHidden && !isDrawer}
+<!-- No songs in playlist -->
+{#if !isDrawer && tracks.length === 0}
+	<div class="text-center mt-24">
+		<h2 class="mb-2 mt-2 text-gray-500 text-3xl font-bold">Looks like there's nothing here!</h2>
+		<p class="text-gray-500">No songs were found in this list.</p>
+	</div>
+	<!-- No songs shown with current settings -->
+{:else if !isDrawer && shownTracks.length === 0}
+	<div class="text-center mt-24 mb-24">
+		<h2 class="mb-2 mt-2 text-gray-500 text-3xl font-bold">
+			All of these songs are outside your tempo range.
+		</h2>
+		<p class="text-gray-500">Try expanding the range to see more.</p>
+	</div>
+{:else}
+	<!-- Main track list -->
+	<ul class="mb-2">
+		{#each isDrawer ? $selectedTracks : shownTracks as track, i}
+			<li>
+				<TrackItem {track} {handlePlayTrack} {handlePauseTrack} {showAlbum} />
+			</li>
+		{/each}
+	</ul>
+{/if}
+<!-- Hidden tracks -->
+{#if showHidden && !isDrawer && tracks.length}
 	<Disclosure let:open>
 		<DisclosureButton>
 			<div class="flex items-center text-gray-900 mb-2">

@@ -10,6 +10,10 @@
 	import SearchField from '$lib/components/atoms/SearchField.svelte';
 
 	export let data: PageData;
+
+	$: artists = data.searchResults?.artists?.items ?? [];
+	$: playlists = data.searchResults?.playlists?.items ?? [];
+	$: albums = data.searchResults?.albums?.items ?? [];
 </script>
 
 <!-- TODO: use enhance (currently breaks tabs) -->
@@ -62,11 +66,20 @@
 					<Heading level="h2">Songs</Heading>
 					<TrackList tracks={data.tracksWithTempos.slice(0, 4)} />
 					<Heading level="h2">Artists</Heading>
-					<ArtistGrid artists={(data.searchResults?.artists?.items ?? []).slice(0, 4)} />
+					<ArtistGrid artists={artists.slice(0, 4)} />
+					{#if !artists.length}
+						<p class="text-gray-500">No artists found</p>
+					{/if}
 					<Heading level="h2">Playlists</Heading>
-					<PlaylistGrid playlists={(data.searchResults?.playlists?.items ?? []).slice(0, 4)} />
+					<PlaylistGrid playlists={playlists.slice(0, 4)} />
+					{#if !playlists.length}
+						<p class="text-gray-500">No playlists found</p>
+					{/if}
 					<Heading level="h2">Albums</Heading>
-					<AlbumGrid albums={(data.searchResults?.albums?.items ?? []).slice(0, 4)} />
+					<AlbumGrid albums={albums.slice(0, 4)} />
+					{#if !albums.length}
+						<p class="text-gray-500">No albums found</p>
+					{/if}
 				</section>
 			</TabPanel>
 			<TabPanel>
@@ -76,17 +89,26 @@
 			</TabPanel>
 			<TabPanel>
 				<section>
-					<ArtistGrid artists={data.searchResults?.artists?.items ?? []} />
+					<ArtistGrid {artists} />
+					{#if !artists.length}
+						<p class="text-gray-500">No artists found</p>
+					{/if}
 				</section>
 			</TabPanel>
 			<TabPanel>
 				<section>
-					<PlaylistGrid playlists={data.searchResults?.playlists?.items ?? []} />
+					<PlaylistGrid {playlists} />
+					{#if !playlists.length}
+						<p class="text-gray-500">No playlists found</p>
+					{/if}
 				</section>
 			</TabPanel>
 			<TabPanel>
 				<section>
-					<AlbumGrid albums={data.searchResults?.albums?.items ?? []} />
+					<AlbumGrid {albums} />
+					{#if !albums.length}
+						<p class="text-gray-500">No albums found</p>
+					{/if}
 				</section>
 			</TabPanel>
 		</TabPanels>
