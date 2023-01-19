@@ -11,7 +11,7 @@
 </script>
 
 <Container>
-	<div class="flex flex-wrap gap-4 mb-2">
+	<div class="flex flex-wrap gap-4 mb-2 items-center">
 		{#if playlist.images.length}
 			<img
 				class="shadow-xl h-48 w-48 object-cover"

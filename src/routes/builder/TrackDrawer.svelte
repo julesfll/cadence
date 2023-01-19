@@ -15,7 +15,7 @@
 	class="shrink-0 bg-white {isOpen ? 'absolute inset-0 z-10' : 'h-28 overflow-y-hidden'}"
 	id="drawer-example"
 >
-	<div class="sticky p-3 top-0 bg-white flex items-center justify-between">
+	<div class="sticky p-4 top-0 bg-white flex items-center justify-between">
 		<div>
 			{#if $selectedTracks.length}
 				<ExportMenu

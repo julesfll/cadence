@@ -1,3 +1,3 @@
-<div class="p-3 md:p-4">
+<div class="p-4 md:p-5">
 	<slot />
 </div>
