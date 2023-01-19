@@ -4,9 +4,10 @@
 
 	export let dateMode: boolean = false;
 	export let albums: (SpotifyApi.AlbumObjectFull | SpotifyApi.AlbumObjectSimplified)[];
+	export let someHidden = false;
 </script>
 
-<CardListGrid>
+<CardListGrid someHidden>
 	{#each albums as album}
 		<AlbumItem {album} {dateMode} />
 	{/each}

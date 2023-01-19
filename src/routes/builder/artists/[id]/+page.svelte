@@ -12,8 +12,8 @@
 	const { items: artistAlbums } = data.artistAlbums;
 	const { artists: artistRelatedArtists } = data.artistRelatedArtists;
 
-	$: artistAlbumsAlbum = artistAlbums.filter((album) => album.album_type === 'album')
-	$: artistAlbumsSingle = artistAlbums.filter((album) => album.album_type === 'single')
+	$: artistAlbumsAlbum = artistAlbums.filter((album) => album.album_type === 'album');
+	$: artistAlbumsSingle = artistAlbums.filter((album) => album.album_type === 'single');
 </script>
 
 <Container>
@@ -50,19 +50,13 @@
 		<Container>
 			<TabPanels>
 				<TabPanel>
-					<AlbumGrid
-						dateMode={true}
-						albums={artistAlbumsAlbum}
-					/>
+					<AlbumGrid someHidden dateMode={true} albums={artistAlbumsAlbum} />
 					{#if artistAlbumsAlbum.length === 0}
 						<p class="text-gray-500">There are no albums for this artist.</p>
 					{/if}
 				</TabPanel>
 				<TabPanel>
-					<AlbumGrid
-						dateMode={true}
-						albums={artistAlbumsSingle}
-					/>
+					<AlbumGrid someHidden dateMode={true} albums={artistAlbumsSingle} />
 					{#if artistAlbumsSingle.length === 0}
 						<p class="text-gray-500">There are no singles for this artist.</p>
 					{/if}
@@ -75,7 +69,7 @@
 	<section>
 		<Heading level="h2">Fans also like</Heading>
 		<!-- TODO: artists not loading properly when link clicked -->
-		<ArtistGrid artists={artistRelatedArtists} />
+		<ArtistGrid artists={artistRelatedArtists} someHidden />
 		{#if artistRelatedArtists.length === 0}
 			<p class="text-gray-500">There are no related artists for this artist.</p>
 		{/if}
