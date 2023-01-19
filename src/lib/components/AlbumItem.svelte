@@ -25,7 +25,7 @@
 		{#if dateMode}
 			{new Date(album.release_date).getFullYear()} • {capitalizeFirstLetter(album.album_type)}
 		{:else}
-			<TextArtistList artists={album.artists} />
+			<TextArtistList includeLinks artists={album.artists} />
 		{/if}
 	</span>
 </CardListItem>

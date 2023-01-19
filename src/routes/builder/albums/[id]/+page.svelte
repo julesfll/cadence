@@ -26,7 +26,7 @@
 				{album.name}
 			</h1>
 			<p class="text-gray-900 font-bold">
-				<TextArtistList artists={album.artists} /> &middot {new Date(
+				<TextArtistList includeLinks artists={album.artists} /> &middot {new Date(
 					album.release_date
 				).getFullYear()} &middot
 				{album.tracks.items.length} songs
