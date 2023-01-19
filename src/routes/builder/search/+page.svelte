@@ -27,90 +27,93 @@
 		/>
 	</form>
 </Container>
-<TabGroup>
-	<TabList class="flex border-b text-sm font-medium text-gray-500">
-		<Tab
-			class={({ selected }) =>
-				'inline-block p-4 ' +
-				(selected ? 'bg-gray-100 text-blue-600' : 'hover:bg-gray-50 hover:text-gray-600')}>All</Tab
-		>
-		<Tab
-			class={({ selected }) =>
-				'inline-block p-4 ' +
-				(selected ? 'bg-gray-100 text-blue-600' : 'hover:bg-gray-50 hover:text-gray-600')}
-			>Songs</Tab
-		>
-		<Tab
-			class={({ selected }) =>
-				'inline-block p-4 ' +
-				(selected ? 'bg-gray-100 text-blue-600' : 'hover:bg-gray-50 hover:text-gray-600')}
-			>Artists</Tab
-		>
-		<Tab
-			class={({ selected }) =>
-				'inline-block p-4 ' +
-				(selected ? 'bg-gray-100 text-blue-600' : 'hover:bg-gray-50 hover:text-gray-600')}
-			>Playlists</Tab
-		>
-		<Tab
-			class={({ selected }) =>
-				'inline-block p-4 ' +
-				(selected ? 'bg-gray-100 text-blue-600' : 'hover:bg-gray-50 hover:text-gray-600')}
-			>Albums</Tab
-		>
-	</TabList>
-	<Container>
-		<TabPanels>
-			<TabPanel>
-				<section>
-					<Heading level="h2">Songs</Heading>
-					<TrackList tracks={data.tracksWithTempos.slice(0, 4)} />
-					<Heading level="h2">Artists</Heading>
-					<ArtistGrid artists={artists.slice(0, 4)} />
-					{#if !artists.length}
-						<p class="text-gray-500">No artists found</p>
-					{/if}
-					<Heading level="h2">Playlists</Heading>
-					<PlaylistGrid playlists={playlists.slice(0, 4)} />
-					{#if !playlists.length}
-						<p class="text-gray-500">No playlists found</p>
-					{/if}
-					<Heading level="h2">Albums</Heading>
-					<AlbumGrid albums={albums.slice(0, 4)} />
-					{#if !albums.length}
-						<p class="text-gray-500">No albums found</p>
-					{/if}
-				</section>
-			</TabPanel>
-			<TabPanel>
-				<section>
-					<TrackList tracks={data.tracksWithTempos} />
-				</section>
-			</TabPanel>
-			<TabPanel>
-				<section>
-					<ArtistGrid {artists} />
-					{#if !artists.length}
-						<p class="text-gray-500">No artists found</p>
-					{/if}
-				</section>
-			</TabPanel>
-			<TabPanel>
-				<section>
-					<PlaylistGrid {playlists} />
-					{#if !playlists.length}
-						<p class="text-gray-500">No playlists found</p>
-					{/if}
-				</section>
-			</TabPanel>
-			<TabPanel>
-				<section>
-					<AlbumGrid {albums} />
-					{#if !albums.length}
-						<p class="text-gray-500">No albums found</p>
-					{/if}
-				</section>
-			</TabPanel>
-		</TabPanels>
-	</Container>
-</TabGroup>
+{#if data.searchQuery}
+	<TabGroup>
+		<TabList class="flex border-b text-sm font-medium text-gray-500">
+			<Tab
+				class={({ selected }) =>
+					'inline-block p-4 ' +
+					(selected ? 'bg-gray-100 text-blue-600' : 'hover:bg-gray-50 hover:text-gray-600')}
+				>All</Tab
+			>
+			<Tab
+				class={({ selected }) =>
+					'inline-block p-4 ' +
+					(selected ? 'bg-gray-100 text-blue-600' : 'hover:bg-gray-50 hover:text-gray-600')}
+				>Songs</Tab
+			>
+			<Tab
+				class={({ selected }) =>
+					'inline-block p-4 ' +
+					(selected ? 'bg-gray-100 text-blue-600' : 'hover:bg-gray-50 hover:text-gray-600')}
+				>Artists</Tab
+			>
+			<Tab
+				class={({ selected }) =>
+					'inline-block p-4 ' +
+					(selected ? 'bg-gray-100 text-blue-600' : 'hover:bg-gray-50 hover:text-gray-600')}
+				>Playlists</Tab
+			>
+			<Tab
+				class={({ selected }) =>
+					'inline-block p-4 ' +
+					(selected ? 'bg-gray-100 text-blue-600' : 'hover:bg-gray-50 hover:text-gray-600')}
+				>Albums</Tab
+			>
+		</TabList>
+		<Container>
+			<TabPanels>
+				<TabPanel>
+					<section>
+						<Heading level="h2">Songs</Heading>
+						<TrackList tracks={data.tracksWithTempos.slice(0, 4)} />
+						<Heading level="h2">Artists</Heading>
+						<ArtistGrid artists={artists.slice(0, 4)} />
+						{#if !artists.length}
+							<p class="text-gray-500">No artists found</p>
+						{/if}
+						<Heading level="h2">Playlists</Heading>
+						<PlaylistGrid playlists={playlists.slice(0, 4)} />
+						{#if !playlists.length}
+							<p class="text-gray-500">No playlists found</p>
+						{/if}
+						<Heading level="h2">Albums</Heading>
+						<AlbumGrid albums={albums.slice(0, 4)} />
+						{#if !albums.length}
+							<p class="text-gray-500">No albums found</p>
+						{/if}
+					</section>
+				</TabPanel>
+				<TabPanel>
+					<section>
+						<TrackList tracks={data.tracksWithTempos} />
+					</section>
+				</TabPanel>
+				<TabPanel>
+					<section>
+						<ArtistGrid {artists} />
+						{#if !artists.length}
+							<p class="text-gray-500">No artists found</p>
+						{/if}
+					</section>
+				</TabPanel>
+				<TabPanel>
+					<section>
+						<PlaylistGrid {playlists} />
+						{#if !playlists.length}
+							<p class="text-gray-500">No playlists found</p>
+						{/if}
+					</section>
+				</TabPanel>
+				<TabPanel>
+					<section>
+						<AlbumGrid {albums} />
+						{#if !albums.length}
+							<p class="text-gray-500">No albums found</p>
+						{/if}
+					</section>
+				</TabPanel>
+			</TabPanels>
+		</Container>
+	</TabGroup>
+{/if}
