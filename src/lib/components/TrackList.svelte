@@ -4,7 +4,6 @@
 	import { filterTracks } from '$lib/utils';
 	import { selectedTracks, trackFilter } from '$lib/stores';
 	import type { TrackWithTempo } from '$lib/types';
-	import Heading from './atoms/Heading.svelte';
 	import Icon from '@iconify/svelte';
 	import { Disclosure, DisclosureButton, DisclosurePanel } from '@rgossiaux/svelte-headlessui';
 	import Button from './atoms/Button.svelte';
@@ -13,6 +12,7 @@
 	export let showAlbum = true;
 	export let showHidden = true;
 	export let isDrawer = false;
+	export let noSongsShownHelper = 'Try expanding the range to see more.';
 
 	let src: string | null;
 	let playTrack: () => void;
@@ -56,7 +56,7 @@
 		<h2 class="mb-2 mt-2 text-gray-500 text-3xl font-bold">
 			All of these songs are outside your tempo range.
 		</h2>
-		<p class="text-gray-500">Try expanding the range to see more.</p>
+		<p class="text-gray-500">{noSongsShownHelper}</p>
 	</div>
 {:else}
 	<!-- Main track list -->
