@@ -8,6 +8,7 @@
 	import type { PageData } from './$types';
 
 	export let data: PageData;
+
 	$: ({ artist, topTracksWithTempos } = data);
 	$: ({ items: artistAlbums } = data.artistAlbums);
 	$: ({ artists: artistRelatedArtists } = data.artistRelatedArtists);

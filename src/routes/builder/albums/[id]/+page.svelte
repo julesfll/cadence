@@ -6,7 +6,7 @@
 	import type { PageData } from './$types';
 
 	export let data: PageData;
-	const { album, tracksWithTempos } = data;
+	$: ({ album, tracksWithTempos } = data);
 </script>
 
 <Container>

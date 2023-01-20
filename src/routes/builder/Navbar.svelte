@@ -1,10 +1,10 @@
 <script lang="ts">
-	export let username: string;
-	export let userImage: string;
-
 	import Icon from '@iconify/svelte';
 	import Button from '$lib/components/atoms/Button.svelte';
 	import FeedbackForm from '$lib/components/FeedbackForm.svelte';
+
+	export let username: string;
+	export let userImage: string;
 </script>
 
 <nav class="flex items-center justify-between p-4">

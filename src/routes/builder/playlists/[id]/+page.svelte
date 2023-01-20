@@ -2,12 +2,11 @@
 	import TrackList from '$lib/components/TrackList.svelte';
 	import type { PageData } from './$types';
 	import Container from '$lib/components/atoms/Container.svelte';
-	import Button from '$lib/components/atoms/Button.svelte';
 	import { formatNumber } from '$lib/utils';
 	import Icon from '@iconify/svelte';
 
 	export let data: PageData;
-	const { playlist, tracksWithTempos } = data;
+	$: ({ playlist, tracksWithTempos } = data);
 </script>
 
 <Container>

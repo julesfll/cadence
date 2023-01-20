@@ -8,13 +8,13 @@
 	import Container from '$lib/components/atoms/Container.svelte';
 
 	export let data: PageData;
-	const { items: userPlaylists } = data.userPlaylists;
+	$: ({ items: userPlaylists } = data.userPlaylists);
 
-	const {
+	$: ({
 		artists: { items: userArtists }
-	} = data.userArtists;
+	} = data.userArtists);
 
-	const userAlbums = data.userAlbums.items.map((albumItem) => albumItem.album);
+	$: userAlbums = data.userAlbums.items.map((albumItem) => albumItem.album);
 </script>
 
 <Container>
