@@ -18,8 +18,13 @@
 	</div>
 	<div class="flex">
 		<FeedbackForm />
-		<Button href="/builder/search" icon="mdi:search" variant="inverted"/>
-		<Button href="/builder" icon="mdi:bookshelf" variant="inverted"/>
-		<Button href="/builder/profile" icon="mdi:account" variant="inverted">{username}</Button>
+		<Button href="/builder/search" icon="mdi:search" variant="inverted" />
+		<Button href="/builder" icon="mdi:bookshelf" variant="inverted" />
+		<Button
+			href="/builder/profile"
+			image={userImage}
+			imageAlt="{username}'s profile picture"
+			variant="inverted">{username}</Button
+		>
 	</div>
 </nav>

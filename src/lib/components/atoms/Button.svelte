@@ -3,6 +3,8 @@
 
 	export let disabled = false;
 	export let icon = '';
+	export let image = '';
+	export let imageAlt = '';
 	export let href = '';
 	export let type: 'button' | 'submit' | 'reset' = 'button';
 	export let srText = '';
@@ -46,6 +48,8 @@
 			<div class="w-5 h-5 {$$slots.default ? 'mr-2 -ml-1' : ''}">
 				<Icon {icon} aria-hidden="true" class="w-5 h-5" />
 			</div>
+		{:else if image}
+			<img src={image} alt={imageAlt} class="w-5 h-5 rounded-full {$$slots.default ? 'mr-2 -ml-1' : ''}" />
 		{/if}
 		<slot />
 	</a>
