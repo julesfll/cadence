@@ -1,6 +1,5 @@
 <script lang="ts">
 	import Container from '$lib/components/atoms/Container.svelte';
-	import Heading from '$lib/components/atoms/Heading.svelte';
 	import TextArtistList from '$lib/components/TextArtistList.svelte';
 	import TrackList from '$lib/components/TrackList.svelte';
 	import Icon from '@iconify/svelte';

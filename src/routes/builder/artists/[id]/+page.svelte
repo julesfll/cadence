@@ -8,9 +8,9 @@
 	import type { PageData } from './$types';
 
 	export let data: PageData;
-	const { artist, topTracksWithTempos } = data;
-	const { items: artistAlbums } = data.artistAlbums;
-	const { artists: artistRelatedArtists } = data.artistRelatedArtists;
+	$: ({ artist, topTracksWithTempos } = data);
+	$: ({ items: artistAlbums } = data.artistAlbums);
+	$: ({ artists: artistRelatedArtists } = data.artistRelatedArtists);
 
 	$: artistAlbumsAlbum = artistAlbums.filter((album) => album.album_type === 'album');
 	$: artistAlbumsSingle = artistAlbums.filter((album) => album.album_type === 'single');
@@ -18,7 +18,7 @@
 
 <Container>
 	<section>
-		<div class="flex justify-center">
+		<div class="flex justify-center mb-4">
 			<img
 				src={artist.images[0].url}
 				alt={artist.name}
